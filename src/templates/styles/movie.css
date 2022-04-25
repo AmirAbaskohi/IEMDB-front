@@ -1,0 +1,191 @@
+p {
+    font-size: 0.9vw;
+}
+
+h1{
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.font-size-12 {
+    font-size: 1.2vw;
+}
+
+.font-size-11 {
+    font-size: 1.1vw;
+}
+
+.iemdb-movie-info-img {
+    width: 100%;
+    height: 30em;
+    object-fit: cover;
+    object-position: top;
+}
+
+.col-custom-20 {
+    position: relative;
+    float: left;
+    width: 20%;
+}
+
+.col-custom-60 {
+    position: relative;
+    float: left;
+    width: 60%;
+}
+
+.iemdb-movie-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.iemdb-movie-poster-container {
+    height: 15em;
+}
+
+.seprator {
+    border-top: 0.001em solid #4E4E50;
+    width: 85%;
+}
+
+.iemdb-movie-info {
+    margin-top: -12%;
+}
+
+.iemdb-movie-score {
+    width: 100%;
+    height: 13em;
+    background-color: rgba(177, 32, 36, 0.8);
+}
+
+.checked {
+    color: orange;
+}
+
+.iemdb-movie-score-row {
+    margin-top: -10%;
+}
+
+.iemdb-movie-vote-count {
+    font-size: 0.9vw;
+    color: #bababb;
+    margin-top: -15%;
+}
+
+.iemdb-movie-cast {
+    margin-top: 0;
+    background-color: #4E4E50;
+    border-radius: 1em;
+    color: white;
+    margin-top: 5em;
+}
+
+.iemdb-movie-comment {
+    margin-top: 0;
+    background-color: #4E4E50;
+    border-radius: 1em;
+    color: white;
+    margin-top: 1em;
+}
+
+.iemdb-movie-actor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    margin-left: 20%;
+}
+
+.iemdb-movie-actor {
+    position: relative;
+    width: 70%;
+    height: 8em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+}
+
+.iemdb-movie-actor-overlay {
+    position: absolute; 
+    bottom: 0; 
+    background: rgba(177, 32, 37, 0.4);
+    width: 100%;
+    height: 100%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 30%;
+    text-align: center;
+    font-size: 1vw !important;
+    border-radius: 50%;
+    margin-left: 20%;
+  }
+  
+.iemdb-movie-actor:hover .iemdb-movie-actor-overlay {
+    opacity: 1;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.iemdb-cast-row {
+    margin-top: -2%;
+}
+
+.iemdb-comment-row {
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+.iemdb-movie-comment-item {
+    background-color: white;
+    color: black;
+    border-radius: 1em;
+    font-size: 0.9em !important;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+}
+
+.iemdb-input-comment {
+    width: 100%;
+    height: 5em;
+    border: none;
+    resize: none;
+    padding: 0.5em;
+    font-size: 0.9vw;
+    border-radius: 1em;
+}
+
+.iemdb-input-comment-button {
+    width: 15%;
+    height: 2em;
+    border: none;
+    border-radius: 0.5em;
+    background-color: rgb(78, 203, 113);
+    color: white;
+}
+
+hr {
+    margin-top: 0.2em;
+}
+
+.up-vote {
+    color: rgb(78, 203, 113);
+    font-size: 1.8vw;
+}
+
+.down-vote {
+    color: rgb(242, 78, 30);
+    font-size: 1.8vw;
+}
+
+.scores-margin {
+    margin-left: 0em;
+}

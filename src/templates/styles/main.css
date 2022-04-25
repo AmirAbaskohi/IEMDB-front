@@ -1,0 +1,192 @@
+html {
+    width: 100%;
+    font-family: Vazir;
+    font-size: 1.2vw;
+}
+
+body {
+    background-color: #292929;
+}
+
+a:visited, a:hover, a:active, a:focus {
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+a {    
+    display:block;    
+    text-decoration: none;    
+} 
+
+a:hover {
+    color: white
+}
+
+input:focus{
+    outline: none;
+}
+
+.color-white {
+    color: white;
+}
+
+.color-red {
+    color: #ed343a;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+
+
+.iemdb-navbar {
+    background-color: #B12025;
+    padding-left: 0;
+    height: 4em;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.iemdb-logo {
+    width: 3em;
+    height: 3.4em;
+    margin-bottom: 0.4em;
+}
+
+.iemdb-user {
+    margin-right: 20px;
+}
+
+.menu{
+    width: 100%;
+}
+
+.menu li {
+    width: 120%;
+    display:block;     
+    float:left; 
+    margin-left:-2em;    
+}
+
+.menu li ul {    
+    display:none;     
+    position:absolute;     
+    z-index:1;
+    padding: 5%;
+}  
+
+.menu li ul li {    
+    float:none;    
+}    
+  
+.menu li:hover ul {    
+    display:block;    
+}
+
+.user li ul{
+    width: 10em;
+    margin-left:-5em;
+}
+
+.cart li ul{
+    width: 10em;
+    margin-left:2em;
+}
+
+.main-container{
+    width: 100%;
+    padding-top: 4em;
+}
+
+
+.iemdb-search-box {
+    width: 100%;
+    height: 2.5em;
+    background-color: white;
+    border-radius: 0.4em;
+    padding: 0.1em;
+}
+
+.iemdb-search-input{
+    display: inline;
+    width: 85%;
+    height: 100%;
+    border: none;
+}
+
+.iemdb-search-icon {
+    text-align: right;
+    color: #B12025;
+    background-color: white;
+    padding: 0;
+    border: none;
+    width: 10%;
+}
+
+
+
+.iemdb-cart-box{
+    width: 100%;
+    height: 2.5em;
+    background-color: white;
+    border-radius: 0.4em;
+    padding: 5px;
+    margin: 0;
+}
+
+.iemdb-cart-input{
+    font-size: 1em;
+    width: 80%;
+    display:inline-block;
+    text-align:center;
+    margin: 0;
+    padding: 0;
+}
+
+.iemdb-cart-input p{
+    text-align:center;
+    margin: 0;
+    padding: 0;
+}
+
+.iemdb-cart-icon {
+    width: 10%;
+    float:right;
+    text-align: center;
+    color: #B12025;
+}
+   
+
+.iemdb-user-elemnt {
+    height: 3em;
+    list-style: none;
+    color: white;
+    background-color: rgba(177, 32, 37, 0.8);
+    text-align: center;
+    padding: 5%;
+}   
+
+.iemdb-rounded-top {
+    border-top-left-radius: 0.8em;
+    border-top-right-radius: 0.8em;
+}
+
+.iemdb-rounded-bottom {
+    border-bottom-left-radius: 0.8em;
+    border-bottom-right-radius: 0.8em;
+}
