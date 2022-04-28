@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom/client';
 import Movies from './movies';
 import './styles/main.css'
 import './styles/login.css'
+import Signup from './signup';
 
+import root from './tools';
+import {redirect} from './tools';
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function IEInput(props){
     return(
@@ -27,6 +32,7 @@ class Login extends React.Component{
     constructor(props) {
         super(props);
         this.state = {username:"", password:""}
+        
     }
     render(){
         return (
@@ -36,7 +42,7 @@ class Login extends React.Component{
                 <div className="col-4"> 
                     <form className="login-form-container" onSubmit={(e) => this.doLogin(e)}>
                         <div className="login-form-element">
-                            <a href="./movies.html"><img src="login-logo.png" className="login-form-logo" alt=""/></a>
+                            <a onClick={(e) => redirect(e, Movies)}><img src="./login-logo.png" className="login-form-logo" alt=""/></a>
                         </div>
 
                         <IEInput type="email" nameEn = "username" nameFa = "نام کاربری" onChange={this.handleUsernameInput}/>
@@ -45,7 +51,10 @@ class Login extends React.Component{
                         <IESubmitButton label = "ورود"/>
                         
                         <div className="login-form-element">
-                            <p className="login-form-label" dir="rtl"> حساب کاربری ندارید؟<a className="login-form-link" href="./signup.html">ثبت‌ نام</a></p>
+                            <p className="login-form-label" dir="rtl">
+                                حساب کاربری ندارید؟
+                                <a className="login-form-link" onClick={(e) => redirect(e, Signup)}>ثبت‌ نام</a>
+                            </p>
                         </div>
                     </form>
                 </div>  
@@ -56,7 +65,7 @@ class Login extends React.Component{
     }
 
     shouldComponentUpdate() {
-        return true;
+        return false;
     }
 
     handleUsernameInput = (event) =>{
@@ -90,9 +99,8 @@ class Login extends React.Component{
 
         const checkResponse = (res) =>{
             console.log(res)
-            const root = ReactDOM.createRoot(document.getElementById('root'));
             if(res.status == 200){
-                root.render(<Movies/>)
+                // root.render(<Movies/>)
             }
         }
 
