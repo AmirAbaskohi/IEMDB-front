@@ -1,11 +1,10 @@
 import React from 'react';
-import { useState } from "react";
-import {IEInput, IESubmitButton} from './login';
-import ReactDOM from 'react-dom/client';
 import ReactStars from "react-rating-stars-component";
-import './styles/main.css'
-import './styles/movie.css'
-import './styles/vazir-fonts.css'
+import './styles/main.css';
+import './styles/movie.css';
+import './styles/vazir-fonts.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { redirect } from './tools';
 
@@ -30,7 +29,7 @@ class MovieComment extends React.Component{
     }
 
     static getDerivedStateFromProps(props, state) {
-        if(props.id != state.id){ /*for initializing from props just once */
+        if(props.id != state.id){
             return props;
         }
         return state;
@@ -105,6 +104,30 @@ function MovieCommentInput(props){
                 document.getElementById("commentTextArea").value = "";
                 props.action(JSON.parse(http.responseText).value);
             }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+                for (var error in JSON.parse(http.responseText).errors) {
+                    toast.error(error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
+            }
         }
         http.send(JSON.stringify(params));
     };
@@ -132,7 +155,7 @@ class MovieInfo extends React.Component{
     }
 
     static getDerivedStateFromProps(props, state) {
-        if(props.info.id != state.id){ /*for initializing from props just once */
+        if(props.info.id != state.id){
             return props.info;
         }
         return state;
@@ -146,6 +169,7 @@ class MovieInfo extends React.Component{
     ratingChanged = (newRating) => {
         var http = new XMLHttpRequest();
         var params = '?score=' + newRating;
+        console.log(newRating)
         http.open('PUT', 'http://localhost:8080/movies/' + this.state.id + params, true);
 
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
@@ -155,6 +179,30 @@ class MovieInfo extends React.Component{
                 this.setState(prevState => ({rating : JSON.parse(http.responseText).value.rating}))
                 this.setState(prevState => ({numberOfRates : JSON.parse(http.responseText).value.numberOfRates}))
                 this.setState(prevState => ({showStars : false}))
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+                for (var error in JSON.parse(http.responseText).errors) {
+                    toast.error(error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         }
         http.send();
@@ -171,6 +219,30 @@ class MovieInfo extends React.Component{
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 202) {
                 this.setState(prevState => ({existsInWatchlist : true}))
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+                for (var error in JSON.parse(http.responseText).errors) {
+                    toast.error(error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         }
         http.send();
@@ -239,7 +311,7 @@ class MovieInfo extends React.Component{
 class Movie extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {"isLoaded":false};
     }
 
     render(){
@@ -266,55 +338,75 @@ class Movie extends React.Component{
         return(
             <div>
                 <Navbar/>
+                <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                toastStyle={{ backgroundColor: "#b12025", color: "white" }}
+                />
 
-            <div className="main-container">
-                <div className="row color-white ml-0 width-100">
-                    <img className="iemdb-movie-info-img" src={this.state.coverImage} alt=""/>
-                </div>
-                <div className="row color-white ml-0 width-100 iemdb-movie-info">
-                    <div className="col-custom-20" ></div>
-                    <div className="col-custom-60" >
-                        <MovieInfo info = {this.state}/>
+            {this.state.isLoaded &&
+                <div className="main-container">
+                    <div className="row color-white ml-0 width-100">
+                        <img className="iemdb-movie-info-img" src={this.state.coverImage} alt=""/>
                     </div>
-                    <div className="col-custom-20"></div>
-                </div>
-                <div className="row width-100">
-                    <div className="col-custom-20"></div>
-                    <div className="col-custom-60">
-                        <div className="row iemdb-movie-cast ml-0 mr-0 pt-3 width-100">
-                            <div className="col-12 text-align-center mt-0 mb-0 pt-0 pb-0">
-                                <p className="font-size-11">بازیگران</p>
-                            </div>
-                            <div className="row ml-0 mr-0 iemdb-cast-row width-100 flex-row flex-nowrap overflow-auto">
-                                {actors}
+                    <div className="row color-white ml-0 width-100 iemdb-movie-info">
+                        <div className="col-custom-20" ></div>
+                        <div className="col-custom-60" >
+                            <MovieInfo info = {this.state}/>
+                        </div>
+                        <div className="col-custom-20"></div>
+                    </div>
+                    <div className="row width-100">
+                        <div className="col-custom-20"></div>
+                        <div className="col-custom-60">
+                            <div className="row iemdb-movie-cast ml-0 mr-0 pt-3 width-100">
+                                <div className="col-12 text-align-center mt-0 mb-0 pt-0 pb-0">
+                                    <p className="font-size-11">بازیگران</p>
+                                </div>
+                                <div className="row ml-0 mr-0 iemdb-cast-row width-100 flex-row flex-nowrap overflow-auto">
+                                    {actors}
+                                </div>
                             </div>
                         </div>
+                        <div className="col-custom-20"></div>
                     </div>
-                    <div className="col-custom-20"></div>
-                </div>
-                <div className="row width-100 mb-5">
-                    <div className="col-custom-20"></div>
-                    <div className="col-custom-60">
-                        <div className="row iemdb-movie-comment ml-0 mr-0 pt-3 width-100">
-                            <div className="col-12 text-align-center mt-0 mb-0 pt-0 pb-0">
-                                <p className="font-size-11">دیدگاه ها</p>
-                            </div>
-                            <div className="row ml-0 mr-0 iemdb-comment-row width-100 pb-4">
-                                <MovieCommentInput movieId = {this.state.id} action = {this.updateComments}/>
-                                {comments}
+                    <div className="row width-100 mb-5">
+                        <div className="col-custom-20"></div>
+                        <div className="col-custom-60">
+                            <div className="row iemdb-movie-comment ml-0 mr-0 pt-3 width-100">
+                                <div className="col-12 text-align-center mt-0 mb-0 pt-0 pb-0">
+                                    <p className="font-size-11">دیدگاه ها</p>
+                                </div>
+                                <div className="row ml-0 mr-0 iemdb-comment-row width-100 pb-4">
+                                    <MovieCommentInput movieId = {this.state.id} action = {this.updateComments}/>
+                                    {comments}
+                                </div>
                             </div>
                         </div>
+                        <div className="col-custom-20"></div>
                     </div>
-                    <div className="col-custom-20"></div>
                 </div>
-            </div>
+            }
+            {!this.state.isLoaded &&
+                <div className="d-flex justify-content-center text-secondary loader-margin">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            }
             </div>
         )
     }
 
     updateComments = (newComment) =>{
         this.state.comments.push(newComment);
-
         this.setState(prevState => ({comments : this.state.comments}))
     }
 
@@ -325,6 +417,32 @@ class Movie extends React.Component{
         http1.onreadystatechange = () => {
             if(http1.readyState == 4 && http1.status == 200) {
                 this.setState(JSON.parse(http1.responseText).value)
+                this.setState(prevState => ({isLoaded : true}))
+            }
+            else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
+                let length1 = JSON.parse(http1.responseText).errors.length;
+                for (let i = 0; i < length1 ; i++) {
+                    toast.error(JSON.parse(http1.responseText).errors[i], {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http1.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         }
         http1.send();
@@ -336,6 +454,31 @@ class Movie extends React.Component{
             if(http2.readyState == 4 && http2.status == 200) {
                 this.setState(prevState => ({comments : JSON.parse(http2.responseText).value}))
             }
+            else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 403) || (http2.status == 404))) {
+                let length2 = JSON.parse(http2.responseText).errors.length;
+                for (let j = 0; j < length2 ; j++) {
+                    toast.error(JSON.parse(http2.responseText).errors[j], {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http2.readyState == 4 && http2.status != 401) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
+            }
         }
         http2.send();
 
@@ -345,6 +488,31 @@ class Movie extends React.Component{
         http3.onreadystatechange = () => {
             if(http3.readyState == 4 && http3.status == 200) {
                 this.setState(prevState => ({actors : JSON.parse(http3.responseText).value}))
+            }
+            else if (http3.readyState == 4 && ((http3.status == 400) || (http3.status == 403) || (http3.status == 404))) {
+                let length3 = JSON.parse(http3.responseText).errors.length;
+                for (let k = 0; k < length3 ; k++) {
+                    toast.error(JSON.parse(http3.responseText).errors[k], {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http3.readyState == 4 && http3.status != 401) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         }
         http3.send();

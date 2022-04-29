@@ -190,3 +190,7 @@ input:focus{
     border-bottom-left-radius: 0.8em;
     border-bottom-right-radius: 0.8em;
 }
+
+.loader-margin{
+    margin-top: 20%;
+}

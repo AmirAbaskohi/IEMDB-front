@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './styles/main.css'
 import './styles/movies.css'
 import './styles/vazir-fonts.css'
@@ -95,7 +94,7 @@ class Movies extends React.Component{
             if(http.readyState == 4 && http.status == 200) {
                 this.setState({"isLoaded": true, "movies": JSON.parse(http.responseText).value})
             }
-            else if (http.readyState == 4 && (http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404)) {
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
                 for (var error in JSON.parse(http.responseText).errors) {
                     toast.error(error, {
                         position: "bottom-center",
