@@ -136,8 +136,9 @@ class Movies extends React.Component{
                 this.setState(prevState => ({"movies": JSON.parse(http.responseText).value}))
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
-                for (var error in JSON.parse(http.responseText).errors) {
-                    toast.error(error, {
+                let length = JSON.parse(http.responseText).errors.length;
+                for (let i = 0 ; i < length ; i++) {
+                    toast.error(JSON.parse(http.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,
