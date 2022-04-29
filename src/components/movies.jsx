@@ -1,7 +1,7 @@
 import React from 'react';
-import './styles/main.css'
-import './styles/movies.css'
-import './styles/vazir-fonts.css'
+import '../styles/main.css'
+import '../styles/movies.css'
+import '../styles/vazir-fonts.css'
 import Movie from './movie';
 import Navbar from './navbar';
 import { ToastContainer, toast } from 'react-toastify';

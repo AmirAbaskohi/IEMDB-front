@@ -2,11 +2,11 @@ import React from 'react';
 import Navbar from './navbar';
 import Movie from './movie';
 import root, { redirect } from './tools';
-import './styles/vazir-fonts.css'
+import '../styles/vazir-fonts.css'
 
-import './styles/main.css'
-import './styles/actor.css'
-import './styles/movies.css'
+import '../styles/main.css'
+import '../styles/actor.css'
+import '../styles/movies.css'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

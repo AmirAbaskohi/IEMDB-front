@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/vazir-fonts.css'
+import '../styles/vazir-fonts.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

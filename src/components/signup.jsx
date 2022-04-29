@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import Movies from './movies';
 import {IEInput, IESubmitButton} from './login';
 import Login from './login';
-import './styles/main.css'
-import './styles/login.css'
-import './styles/vazir-fonts.css'
+import '../styles/main.css'
+import '../styles/login.css'
+import '../styles/vazir-fonts.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

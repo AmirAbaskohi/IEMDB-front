@@ -1,8 +1,8 @@
 import React from 'react';
-import Login from './login';
-import Movies from './movies';
-import Signup from './signup';
-import Watchlist from './watchlist';
+import Login from './components/login';
+import Movies from './components/movies';
+import Signup from './components/signup';
+import Watchlist from './components/watchlist';
 import { render } from "react-dom";
 import { Link } from 'react-router-dom';
 import './styles/main.css'

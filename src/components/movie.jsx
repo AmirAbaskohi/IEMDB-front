@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactStars from "react-rating-stars-component";
-import './styles/main.css';
-import './styles/movie.css';
-import './styles/vazir-fonts.css';
+import '../styles/main.css';
+import '../styles/movie.css';
+import '../styles/vazir-fonts.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

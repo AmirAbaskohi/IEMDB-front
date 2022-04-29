@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Movies from './movies';
-import './styles/main.css'
-import './styles/login.css'
+import '../styles/main.css'
+import '../styles/login.css'
 import Signup from './signup';
-import './styles/vazir-fonts.css'
+import '../styles/vazir-fonts.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -105,8 +105,9 @@ class Login extends React.Component{
                 }
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
-                for (var error in JSON.parse(http.responseText).errors) {
-                    toast.error(error, {
+                let length = JSON.parse(http.responseText).errors.length;
+                for (let i = 0 ; i < length ; i++) {
+                    toast.error(JSON.parse(http.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,
