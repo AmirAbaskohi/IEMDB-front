@@ -13,6 +13,27 @@ class WatchlistMovie extends React.Component{
         super(props);
         this.state = {};    
     }
+
+    doDelete = (event) =>{
+        event.preventDefault();
+        
+
+        var http = new XMLHttpRequest();
+        var params = '?movieId=' + this.props.info.id;
+        http.open('DELETE', 'http://localhost:8080/user/watchlist' + params, true);
+
+        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+
+        http.onreadystatechange = () => {
+            if(http.readyState === 4 && http.status === 202) {
+                // this.setState(prevState => ({existsInWatchlist : true}))
+            }
+        }
+        http.send();
+
+        this.props.action();
+    }
+
     render(){
         return(
             <div className="card mb-3 iemdb-watchlist-card">
@@ -25,7 +46,12 @@ class WatchlistMovie extends React.Component{
                     <div className="col-md-9">
                         <div className="row">
                             <div className="iemdb-watchlist-movie-name">
-                            <p><span className="iemdb-watchlist-movie-title">{this.props.info.name}</span><span className="iemdb-watchlist-trash"><i className="fas fa-trash color-red"></i></span></p>
+                            <p>
+                                <span className="iemdb-watchlist-movie-title">{this.props.info.name}</span>
+                                <span className="iemdb-watchlist-trash">
+                                    <i className="fas fa-trash color-red" onClick={(e) => {this.doDelete(e)}}></i>
+                                </span>
+                            </p>
                             </div>
                         </div>
                         <div className="row iemdb-watchlist-movie-info">
@@ -60,7 +86,9 @@ class WatchlistRecomMovie extends React.Component{
             <div className="col">
                 <div className="iemdb-watchlist-recom-movie">
                     <img src={this.props.info.image} className="iemdb-watchlist-recom-movie-image" alt=""/>
-                    <div className="iemdb-watchlist-recom-movie-overlay">{this.props.info.name} <br /><br /> {this.props.info.imdbRate}</div>
+                    <div className="iemdb-watchlist-recom-movie-overlay" onClick={(e) => {redirect(e, <Movie movieId = {this.props.info.id}/>)}}>
+                        {this.props.info.name} <br /><br /> {this.props.info.imdbRate}
+                    </div>
                 </div>
             </div>
         )
@@ -72,18 +100,22 @@ class Watchlist extends React.Component{
         super(props);
         this.state = {};    
     }
-    render(){
 
+    deleteMovie = () => {
+        this.componentDidMount();
+    }
+
+    render(){
         const watchlist = []
         for(var index in this.state.watchlist){
             watchlist.push(<WatchlistMovie info = {this.state.watchlist[index] }
-                            key={this.state.watchlist[index].id}/>)
+                            key={this.state.watchlist[index].id}
+                            action = {this.deleteMovie}/>)
         }
 
         const recommendations = []
         
         for(var index in this.state.recommendations){
-            console.log(this.state.recommendations[index])
             recommendations.push(<WatchlistRecomMovie  info = {this.state.recommendations[index] }
                             key={this.state.recommendations[index].id}/>)
         }
@@ -129,7 +161,7 @@ class Watchlist extends React.Component{
         http1.open('GET', 'http://localhost:8080/user/watchlist', true);
         http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
         http1.onreadystatechange = () => {
-            if(http1.readyState == 4 && http1.status == 200) {
+            if(http1.readyState === 4 && http1.status === 200) {
                 this.setState(prevState => ({watchlist : JSON.parse(http1.responseText).value}))
             }
         }
@@ -139,7 +171,7 @@ class Watchlist extends React.Component{
         http2.open('GET', 'http://localhost:8080/user/recommendationList', true);
         http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
         http2.onreadystatechange = () => {
-            if(http2.readyState == 4 && http2.status == 200) {
+            if(http2.readyState === 4 && http2.status === 200) {  
                 this.setState(prevState => ({recommendations : JSON.parse(http2.responseText).value}))
             }
         }

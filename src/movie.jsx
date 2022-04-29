@@ -25,7 +25,31 @@ function MovieActor(props){
 class MovieComment extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {showStars : false};
+        this.state = {};
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if(props.id != state.id){ /*for initializing from props just once */
+            return props;
+        }
+        return state;
+    } 
+
+    doVote(event, score){
+        event.preventDefault();
+
+        var http = new XMLHttpRequest();
+        var params = '?vote=' + score;
+        http.open('PUT', 'http://localhost:8080/comment/' + this.state.id + params, true);
+
+        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+
+        http.onreadystatechange = () =>  {
+            if(http.readyState == 4 && http.status == 202) {
+                this.setState(JSON.parse(http.responseText).value)
+            }
+        }
+        http.send();
     }
 
     render(){
@@ -40,8 +64,14 @@ class MovieComment extends React.Component{
                     <div className="col-2 mr-0 mt-0 mb-0">
                         <div className="col-12 m-0 p-0">
                             <div className="row width-100">
-                                <div className="col m-0 p-0"><i className="fa fa-chevron-circle-down down-vote"></i><br/><p className="pl-2">{this.props.likes}</p></div>
-                                <div className="col m-0 p-0"><i className="fa fa-chevron-circle-up up-vote"></i><br/><p className="pl-1">{this.props.dislikes}</p></div>
+                                <div className="col m-0 p-0">
+                                    <i className="fa fa-chevron-circle-down down-vote" onClick={(e) => {this.doVote(e, 1)}}></i>
+                                    <br/><p className="pl-2">{this.state.votes.likes}</p>
+                                </div>
+                                <div className="col m-0 p-0">
+                                    <i className="fa fa-chevron-circle-up up-vote" onClick={(e) => {this.doVote(e, -1)}}></i>
+                                    <br/><p className="pl-1">{this.state.votes.dislikes}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -224,11 +254,11 @@ class Movie extends React.Component{
 
         const comments = []
         for(var index in this.state.comments){
-            comments.push(<MovieComment 
+            comments.push(<MovieComment
+                            id = {this.state.comments[index].id}
                             userNickname = {this.state.comments[index].userNickname}
                             text={this.state.comments[index].text} 
-                            likes={this.state.comments[index].votes.likes}
-                            dislikes={this.state.comments[index].votes.dislikes} 
+                            votes={this.state.comments[index].votes}
                             key={this.state.comments[index].id}/>)
         }
     
