@@ -79,34 +79,18 @@ class Login extends React.Component{
     doLogin = (event) =>{
         event.preventDefault();
 
-        var params = {
-		    "email": this.state.username,
-		    "password" : this.state.password,
-        };
-
-		var queryString = Object.keys(params).map(function(key) {
-    		return key + '=' + params[key]
-		}).join('&');
-
-		const requestOptions = {
-	        method: 'POST',
-	        headers: { 
-	        	'content-length' : queryString.length,
-	        	'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	        },
-	        body: queryString
-	    };
-
-        const checkResponse = (res) =>{
-            console.log(res)
-            if(res.status == 200){
-                root.render(<Movies/>)
+        var http = new XMLHttpRequest();
+        var params = '?' + 'email=' + this.state.username + '&password=' + this.state.password;
+        http.open('POST', 'http://localhost:8080/account/login/' + params, true);
+        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+        http.onreadystatechange = () =>  {
+            if(http.readyState == 4 && http.status == 200) {
+                if(http.status  == 200){
+                    root.render(<Movies/>)
+                }
             }
         }
-
-	    fetch('http://localhost:8080/account/login', requestOptions)
-	        .then(response => checkResponse(response))  
-	        .then(data => console.log(data));
+        http.send();
     }
 }
 

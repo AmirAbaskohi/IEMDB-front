@@ -63,12 +63,17 @@ class Movies extends React.Component{
             </div>
         )
     }
-    componentDidMount() {        
-        fetch('http://localhost:8080/movies')
-            .then(response => response.json())
-            .then(data => this.setState(data.value))
+    componentDidMount() {      
+        var http = new XMLHttpRequest();
+        http.open('GET', 'http://localhost:8080/movies', true);
+        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http.onreadystatechange = () => {
+            if(http.readyState == 4 && http.status == 200) {
+                this.setState(JSON.parse(http.responseText).value)
+            }
+        }
+        http.send();
     }
-    
 }
 
 export default Movies;

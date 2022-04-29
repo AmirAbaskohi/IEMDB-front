@@ -76,14 +76,26 @@ class Actor extends React.Component{
         )
     }
 
-    componentDidMount = () => {      
-        fetch('http://localhost:8080/actors/' + this.props.actorId)
-            .then(response => response.json())
-            .then(data => {this.setState(data.value)});
+    componentDidMount = () => {
+        var http1 = new XMLHttpRequest();
+        http1.open('GET', 'http://localhost:8080/actors/' + this.props.actorId, true);
+        http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http1.onreadystatechange = () => {
+            if(http1.readyState == 4 && http1.status == 200) {
+                this.setState(JSON.parse(http1.responseText).value)
+            }
+        }
+        http1.send();
 
-            fetch('http://localhost:8080/actors/' + this.props.actorId + "/movies")
-            .then(response => response.json())
-            .then(data => {this.setState(prevState => ({movies : data.value}))});
+        var http2 = new XMLHttpRequest();
+        http2.open('GET', 'http://localhost:8080/actors/' + this.props.actorId + "/movies", true);
+        http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http2.onreadystatechange = () => {
+            if(http2.readyState == 4 && http2.status == 200) {
+                this.setState(prevState => ({movies : JSON.parse(http2.responseText).value}))
+            }
+        }
+        http2.send();
     }
 }
 

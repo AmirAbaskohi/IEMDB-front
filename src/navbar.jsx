@@ -108,13 +108,19 @@ class UserMenu extends React.Component{
             }
         }
         http.send();
-        redirect(event, Movies);
+        redirect(event, <Movies/>);
     }
 
     componentDidMount() {     
-        fetch('http://localhost:8080/account')
-            .then(response => response.json())
-            .then(data => this.setState(data.value))
+        var http1 = new XMLHttpRequest();
+        http1.open('GET', 'http://localhost:8080/account', true);
+        http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http1.onreadystatechange = () => {
+            if(http1.readyState == 4 && http1.status == 200) {
+                this.setState(JSON.parse(http1.responseText).value)
+            }
+        }
+        http1.send();
     }
 } 
 

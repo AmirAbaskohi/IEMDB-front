@@ -9,5 +9,5 @@ import Actor from './actor';
 import Watchlist from './watchlist';
 
 root.render(
-  <Watchlist/>
+  <Movies/>
 );

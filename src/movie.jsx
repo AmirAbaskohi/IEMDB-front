@@ -231,8 +231,7 @@ class Movie extends React.Component{
                             dislikes={this.state.comments[index].votes.dislikes} 
                             key={this.state.comments[index].id}/>)
         }
-        
-
+    
         return(
             <div>
                 <Navbar/>
@@ -288,19 +287,36 @@ class Movie extends React.Component{
         this.setState(prevState => ({comments : this.state.comments}))
     }
 
-    componentDidMount = () => {      
-        fetch('http://localhost:8080/movies/' + this.props.movieId)
-            .then(response => response.json())
-            .then(data => {this.setState(data.value)});
+    componentDidMount = () => {
+        var http1 = new XMLHttpRequest();
+        http1.open('GET', 'http://localhost:8080/movies/' + this.props.movieId, true);
+        http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http1.onreadystatechange = () => {
+            if(http1.readyState == 4 && http1.status == 200) {
+                this.setState(JSON.parse(http1.responseText).value)
+            }
+        }
+        http1.send();
 
-        fetch('http://localhost:8080/movies/' + this.props.movieId + "/comments")
-        .then(response => response.json())
-        .then(data => {this.setState(prevState => ({comments : data.value}))});
+        var http2 = new XMLHttpRequest();
+        http2.open('GET', 'http://localhost:8080/movies/' + this.props.movieId + "/comments", true);
+        http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http2.onreadystatechange = () => {
+            if(http2.readyState == 4 && http2.status == 200) {
+                this.setState(prevState => ({comments : JSON.parse(http2.responseText).value}))
+            }
+        }
+        http2.send();
 
-        fetch('http://localhost:8080/movies/' + this.props.movieId + "/actors")
-        .then(response => response.json())
-        .then(data => {this.setState(prevState => ({actors : data.value}))});
-        
+        var http3 = new XMLHttpRequest();
+        http3.open('GET', 'http://localhost:8080/movies/' + this.props.movieId + "/actors", true);
+        http3.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http3.onreadystatechange = () => {
+            if(http3.readyState == 4 && http3.status == 200) {
+                this.setState(prevState => ({actors : JSON.parse(http3.responseText).value}))
+            }
+        }
+        http3.send();
     }
 }
 export default Movie;
