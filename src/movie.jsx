@@ -297,7 +297,7 @@ class MovieInfo extends React.Component{
                             <p className="font-size-12">امتیاز کاربران</p>
                             <p className="text-align-center pl-4 iemdb-movie-vote-count">({this.state.numberOfRates} رای)</p>
                         </div>
-                        <div className="col-5 pt-2 pr-0">
+                        <div className="col-5 pt-2 pr-3">
                             <h3 className="text-align-right">{this.state.rating}</h3>
                         </div>
                     </div>

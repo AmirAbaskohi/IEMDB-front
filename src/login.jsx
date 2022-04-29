@@ -5,6 +5,8 @@ import './styles/main.css'
 import './styles/login.css'
 import Signup from './signup';
 import './styles/vazir-fonts.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
 import {redirect} from './tools';
@@ -38,6 +40,18 @@ class Login extends React.Component{
     render(){
         return (
             <div className="row width-100">
+                <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                toastStyle={{ backgroundColor: "#b12025", color: "white" }}
+                />
                 <div className="col-4"></div>
 
                 <div className="col-4"> 
@@ -54,7 +68,7 @@ class Login extends React.Component{
                         <div className="login-form-element">
                             <p className="login-form-label" dir="rtl">
                                 حساب کاربری ندارید؟
-                                <a className="login-form-link" onClick={(e) => redirect(e, <Signup/>)}>ثبت‌ نام</a>
+                                <a className="login-form-link cursor-pointer" onClick={(e) => redirect(e, <Signup/>)}>ثبت‌ نام</a>
                             </p>
                         </div>
                     </form>
@@ -89,6 +103,30 @@ class Login extends React.Component{
                 if(http.status  == 200){
                     root.render(<Movies/>)
                 }
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+                for (var error in JSON.parse(http.responseText).errors) {
+                    toast.error(error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         }
         http.send();

@@ -6,6 +6,8 @@ import Login from './login';
 import './styles/main.css'
 import './styles/login.css'
 import './styles/vazir-fonts.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
 import {redirect} from './tools';
@@ -19,6 +21,18 @@ class Signup extends React.Component{
     render(){
         return (
             <div className="row width-100">
+                <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                toastStyle={{ backgroundColor: "#b12025", color: "white" }}
+                />
                 <div className="col-4"></div>
 
                 <div className="col-4"> 

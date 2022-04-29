@@ -9,6 +9,9 @@ import './styles/vazir-fonts.css'
 import root from './tools';
 import {redirect} from './tools';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class WatchlistMovie extends React.Component{
     constructor(props) {
         super(props);
@@ -28,6 +31,30 @@ class WatchlistMovie extends React.Component{
         http.onreadystatechange = () => {
             if(http.readyState === 4 && http.status === 202) {
                 // this.setState(prevState => ({existsInWatchlist : true}))
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+                for (var error in JSON.parse(http.responseText).errors) {
+                    toast.error(error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         }
         http.send();
@@ -124,6 +151,18 @@ class Watchlist extends React.Component{
         return(
             <div>
                 <Navbar/>
+                <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                toastStyle={{ backgroundColor: "#b12025", color: "white" }}
+                />
 
                 <div className="main-container">
                     <div className="container-fluid mt-5 mb-5">
@@ -165,6 +204,30 @@ class Watchlist extends React.Component{
             if(http1.readyState === 4 && http1.status === 200) {
                 this.setState(prevState => ({watchlist : JSON.parse(http1.responseText).value}))
             }
+            else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
+                for (var error in JSON.parse(http1.responseText).errors) {
+                    toast.error(error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http1.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
+            }
         }
         http1.send();
 
@@ -174,6 +237,30 @@ class Watchlist extends React.Component{
         http2.onreadystatechange = () => {
             if(http2.readyState === 4 && http2.status === 200) {  
                 this.setState(prevState => ({recommendations : JSON.parse(http2.responseText).value}))
+            }
+            else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 403) || (http2.status == 404))) {
+                for (var error in JSON.parse(http2.responseText).errors) {
+                    toast.error(error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http2.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         }
         http2.send();
