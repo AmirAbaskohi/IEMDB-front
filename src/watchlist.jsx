@@ -33,8 +33,9 @@ class WatchlistMovie extends React.Component{
                 // this.setState(prevState => ({existsInWatchlist : true}))
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
-                for (var error in JSON.parse(http.responseText).errors) {
-                    toast.error(error, {
+                let length_remove_watchlist = JSON.parse(http.responseText).errors.length;
+                for (let i = 0; i < length_remove_watchlist ; i++) {
+                    toast.error(JSON.parse(http.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,
@@ -205,8 +206,9 @@ class Watchlist extends React.Component{
                 this.setState(prevState => ({watchlist : JSON.parse(http1.responseText).value}))
             }
             else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
-                for (var error in JSON.parse(http1.responseText).errors) {
-                    toast.error(error, {
+                let length_get_watchlist = JSON.parse(http1.responseText).errors.length;
+                for (let i = 0; i < length_get_watchlist ; i++) {
+                    toast.error(JSON.parse(http1.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,
@@ -239,8 +241,9 @@ class Watchlist extends React.Component{
                 this.setState(prevState => ({recommendations : JSON.parse(http2.responseText).value}))
             }
             else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 403) || (http2.status == 404))) {
-                for (var error in JSON.parse(http2.responseText).errors) {
-                    toast.error(error, {
+                let length_get_recomlist = JSON.parse(http2.responseText).errors.length;
+                for (let i = 0; i < length_get_recomlist ; i++) {
+                    toast.error(JSON.parse(http2.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,

@@ -105,8 +105,9 @@ function MovieCommentInput(props){
                 props.action(JSON.parse(http.responseText).value);
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
-                for (var error in JSON.parse(http.responseText).errors) {
-                    toast.error(error, {
+                let length_add_comment = JSON.parse(http.responseText).errors.length;
+                for (let i = 0; i < length_add_comment ; i++) {
+                    toast.error(JSON.parse(http.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,
@@ -181,8 +182,9 @@ class MovieInfo extends React.Component{
                 this.setState(prevState => ({showStars : false}))
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
-                for (var error in JSON.parse(http.responseText).errors) {
-                    toast.error(error, {
+                let length_rate_movie = JSON.parse(http.responseText).errors.length;
+                for (let i = 0; i < length_rate_movie ; i++) {
+                    toast.error(JSON.parse(http.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,
@@ -221,8 +223,9 @@ class MovieInfo extends React.Component{
                 this.setState(prevState => ({existsInWatchlist : true}))
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
-                for (var error in JSON.parse(http.responseText).errors) {
-                    toast.error(error, {
+                let length_add_watchlist = JSON.parse(http.responseText).errors.length;
+                for (let i = 0; i < length_add_watchlist ; i++) {
+                    toast.error(JSON.parse(http.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,
