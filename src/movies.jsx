@@ -24,8 +24,25 @@ function MovieItem(props){
 class Movies extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {"isLoaded": false, "movies": []}
+        this.state = {"isLoaded": false, "movies": [], sortBy:"", searchType:"", searchText:""}
     }
+
+    doSort = (event, sortBy) => {
+        event.preventDefault();
+        if(this.state.sortBy === sortBy){
+            this.setState(prevState => ({sortBy : ""}));
+        }
+        else {
+            this.setState(prevState => ({sortBy : sortBy}));
+        }
+        this.componentDidMount();
+    }
+
+    doSearch = (searchType, searchText) => {
+        this.setState(prevState => ({searchType : searchType, searchText : searchText}));
+        this.componentDidMount();
+    }
+
     render(){
         const movies = []
         
@@ -40,20 +57,11 @@ class Movies extends React.Component{
 
         return (
             <div>
-                <Navbar showBox = "true"/>
+                <Navbar showBox = "true" action = {this.doSearch}/>
 
-                <ToastContainer
-                position="bottom-center"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                toastStyle={{ backgroundColor: "#b12025", color: "white" }}
-                />
+                <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={false} newestOnTop={false}
+                                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
+                                toastStyle={{ backgroundColor: "#b12025", color: "white" }}/>
 
                 <div className="main-container">
                     {this.state.isLoaded &&
@@ -67,8 +75,16 @@ class Movies extends React.Component{
                             <div className="col-2 mt-5">
                                 <div><p className="iemdb-sort-title" dir="rtl"> رتبه بندی بر اساس:</p>  </div>
                                 <ul className="iemdb-sort-list">
-                                    <li className="iemdb-user-elemnt iemdb-rounded-top" dir="rtl"><a href='#' className="color-white" >تاریخ</a></li>
-                                    <li className="iemdb-user-elemnt iemdb-rounded-bottom" dir="rtl"><a href='#' className="color-white">امتیاز IMDB</a></li>
+                                    <li className="iemdb-user-elemnt iemdb-rounded-top" dir="rtl" 
+                                        style={{backgroundColor:this.state.sortBy === "date" ? "rgba(177, 32, 37, 0.9)" : "rgba(177, 32, 37, 0.6)"}}
+                                        onClick={(e) => this.doSort(e, "date")}>
+                                        <a href='#' className="color-white"  >تاریخ</a>
+                                    </li>
+                                    <li className="iemdb-user-elemnt iemdb-rounded-bottom" dir="rtl"
+                                        style={{backgroundColor:this.state.sortBy === "imdb" ? "rgba(177, 32, 37, 0.9)" : "rgba(177, 32, 37, 0.6)"}}
+                                        onClick={(e) => this.doSort(e, "imdb")}>
+                                        <a href='#' className="color-white">امتیاز IMDB</a>
+                                    </li>
                                 </ul> 
                             </div>
                         </div>
@@ -88,7 +104,31 @@ class Movies extends React.Component{
         let lastMovies = this.state.movies;
         this.setState({"isLoaded": false, "movies":lastMovies})
         var http = new XMLHttpRequest();
-        http.open('GET', 'http://localhost:8080/movies', true);
+        var params = "";
+        if(this.state.sortBy !== "" || this.state.searchType !== "" || this.state.searchText !== ""){
+            params = "?";
+            var hasPrevParam = false;
+            if(this.state.sortBy !== ""){
+                hasPrevParam = true;
+                params = params + "sort=" + this.state.sortBy;
+            }
+            if(this.state.searchType !== ""){
+                if(hasPrevParam){
+                    params = params + "&";
+                }
+                hasPrevParam = true;
+                params = params + "queryType=" + this.state.searchType;
+            }
+            if(this.state.searchText !== ""){
+                if(hasPrevParam){
+                    params = params + "&";
+                }
+                hasPrevParam = true;
+                params = params + "query=" + this.state.searchText;
+            }
+        }
+
+        http.open('GET', 'http://localhost:8080/movies' + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 200) {
