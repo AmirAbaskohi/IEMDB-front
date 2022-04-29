@@ -74,6 +74,8 @@ class Movies extends React.Component{
         )
     }
     componentDidMount() {      
+        let lastMovies = this.state.movies;
+        this.setState({"isLoaded": false, "movies":lastMovies})
         var http = new XMLHttpRequest();
         http.open('GET', 'http://localhost:8080/movies', true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
