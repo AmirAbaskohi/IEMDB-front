@@ -23,20 +23,21 @@ function MovieItem(props){
 class Movies extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {"isLoaded": false, "movies": []}
     }
     render(){
-
         const movies = []
         
-        for(var index in this.state){
+        for(var index in this.state.movies){
             movies.push(<MovieItem 
-                            movieId = {this.state[index].id}
-                            movieName={this.state[index].name} 
-                            movieRate = {this.state[index].imdbRate} 
-                            imgAddrs={this.state[index].image} 
-                            key={this.state[index].id}/>)
+                            movieId = {this.state.movies[index].id}
+                            movieName={this.state.movies[index].name} 
+                            movieRate = {this.state.movies[index].imdbRate} 
+                            imgAddrs={this.state.movies[index].image} 
+                            key={this.state.movies[index].id}/>)
         }
+
+        console.log(this.state.isLoaded)
 
 
         return (
@@ -44,21 +45,30 @@ class Movies extends React.Component{
                 <Navbar showBox = "true"/>
 
                 <div className="main-container">
-                    <div className="row width-100 mt-5">
-                        <div className="col-2"></div>
-                        
-                        <div className="col-8 row">
-                            {movies}
-                        </div>
+                    {this.state.isLoaded &&
+                        <div className="row width-100 mt-5">
+                            <div className="col-2"></div>
+                            
+                            <div className="col-8 row">
+                                {movies}
+                            </div>
 
-                        <div className="col-2 mt-5">
-                            <div><p className="iemdb-sort-title" dir="rtl"> رتبه بندی بر اساس:</p>  </div>
-                            <ul className="iemdb-sort-list">
-                                <li className="iemdb-user-elemnt iemdb-rounded-top" dir="rtl"><a href='#' className="color-white" >تاریخ</a></li>
-                                <li className="iemdb-user-elemnt iemdb-rounded-bottom" dir="rtl"><a href='#' className="color-white">امتیاز IMDB</a></li>
-                            </ul> 
+                            <div className="col-2 mt-5">
+                                <div><p className="iemdb-sort-title" dir="rtl"> رتبه بندی بر اساس:</p>  </div>
+                                <ul className="iemdb-sort-list">
+                                    <li className="iemdb-user-elemnt iemdb-rounded-top" dir="rtl"><a href='#' className="color-white" >تاریخ</a></li>
+                                    <li className="iemdb-user-elemnt iemdb-rounded-bottom" dir="rtl"><a href='#' className="color-white">امتیاز IMDB</a></li>
+                                </ul> 
+                            </div>
                         </div>
-                    </div>
+                    }
+                    {!this.state.isLoaded &&
+                        <div className="d-flex justify-content-center text-secondary loader-margin">
+                            <div className="spinner-border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         )
@@ -69,7 +79,7 @@ class Movies extends React.Component{
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 200) {
-                this.setState(JSON.parse(http.responseText).value)
+                this.setState({"isLoaded": true, "movies": JSON.parse(http.responseText).value})
             }
         }
         http.send();
