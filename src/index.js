@@ -6,13 +6,23 @@ import Movie from './movie';
 import Actor from './actor';
 import Watchlist from './watchlist';
 import { render } from "react-dom";
+import { Link } from 'react-router-dom';
+import './styles/main.css'
 import {
   BrowserRouter as Router,
   useRoutes,
 } from "react-router-dom";
 
+const NotFound = () => (
+  <div className='color-white'>
+    <h1>404 - Not Found!</h1>
+    <Link to="/">Go Home</Link>
+  </div>
+);
+
 const App = () => {
   let routes = useRoutes([
+    { path: "*", element: <NotFound /> },
     { path: "/", element: <Movies /> },
     { path: "/movies", element: <Movies /> },
     { path: "/watchlist", element: <Watchlist /> },
