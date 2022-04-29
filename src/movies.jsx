@@ -60,7 +60,7 @@ class Movies extends React.Component{
                         <div className="row width-100 mt-5">
                             <div className="col-2"></div>
                             
-                            <div className="col-8 row">
+                            <div className="col-8 row mb-5">
                                 {movies}
                             </div>
 
