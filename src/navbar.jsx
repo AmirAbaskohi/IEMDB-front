@@ -57,17 +57,17 @@ class SearchBox extends React.Component{
                                         <i className="fas fa-caret-down fa-2x "></i>
                                     </div>
                                     <ul>    
-                                        <li className="iemdb-user-elemnt iemdb-rounded-top"
+                                        <li className="iemdb-user-elemnt iemdb-rounded-top cursor-pointer"
                                             style={{backgroundColor:this.state.searchType === "2" ? "rgba(177, 32, 37, 0.9)" : "rgba(177, 32, 37, 0.6)"}}
                                             onClick={(e) => this.doSearchType(e, "2")}>
                                             <a className="color-white" >نام</a>
                                         </li>
-                                        <li className="iemdb-user-elemnt"
+                                        <li className="iemdb-user-elemnt cursor-pointer"
                                             style={{backgroundColor:this.state.searchType === "1" ? "rgba(177, 32, 37, 0.9)" : "rgba(177, 32, 37, 0.6)"}}
                                             onClick={(e) => this.doSearchType(e, "1")}>
                                             <a className="color-white">ژانر</a>
                                         </li>
-                                        <li className="iemdb-user-elemnt iemdb-rounded-bottom"
+                                        <li className="iemdb-user-elemnt iemdb-rounded-bottom cursor-pointer"
                                             style={{backgroundColor:this.state.searchType === "3" ? "rgba(177, 32, 37, 0.9)" : "rgba(177, 32, 37, 0.6)"}}
                                             onClick={(e) => this.doSearchType(e, "3")}>
                                             <a className="color-white">تاریخ تولید</a>

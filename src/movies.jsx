@@ -33,14 +33,14 @@ class Movies extends React.Component{
             this.setState(prevState => ({sortBy : ""}));
         }
         else {
-            this.setState(prevState => ({sortBy : sortBy}));
+            this.setState(prevState => ({sortBy : sortBy}), this.componentDidMount);
         }
-        this.componentDidMount();
+        this.setState(prevState => ({"isLoaded": false}));
     }
 
     doSearch = (searchType, searchText) => {
-        this.setState(prevState => ({searchType : searchType, searchText : searchText}));
-        this.componentDidMount();
+        this.setState(prevState => ({searchType : searchType, searchText : searchText}), this.componentDidMount);
+        this.setState(prevState => ({"isLoaded": false}));
     }
 
     render(){
@@ -102,9 +102,9 @@ class Movies extends React.Component{
     }
     componentDidMount() {      
         let lastMovies = this.state.movies;
-        this.setState({"isLoaded": false, "movies":lastMovies})
         var http = new XMLHttpRequest();
         var params = "";
+        this.setState(prevState => ({"isLoaded": false}))
         if(this.state.sortBy !== "" || this.state.searchType !== "" || this.state.searchText !== ""){
             params = "?";
             var hasPrevParam = false;
@@ -132,7 +132,8 @@ class Movies extends React.Component{
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 200) {
-                this.setState({"isLoaded": true, "movies": JSON.parse(http.responseText).value})
+                this.setState(prevState => ({"isLoaded": true}))
+                this.setState(prevState => ({"movies": JSON.parse(http.responseText).value}))
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
                 for (var error in JSON.parse(http.responseText).errors) {
