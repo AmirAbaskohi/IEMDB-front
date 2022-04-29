@@ -14,7 +14,7 @@ import Actor from './actor';
 function MovieActor(props){
     return(
         <div className="col-3">
-            <div className="iemdb-movie-actor">
+            <div className="iemdb-movie-actor cursor-pointer">
                 <img src={props.image} className="iemdb-movie-actor-image" alt=""/>
                 <a onClick={(e) => {redirect(e, <Actor actorId = {props.id}/>)}}><div className="iemdb-movie-actor-overlay">{props.name} <br />Age: {props.age}</div></a>
             </div>
@@ -64,11 +64,11 @@ class MovieComment extends React.Component{
                     <div className="col-2 mr-0 mt-0 mb-0">
                         <div className="col-12 m-0 p-0">
                             <div className="row width-100">
-                                <div className="col m-0 p-0">
+                                <div className="col m-0 p-0 cursor-pointer">
                                     <i className="fa fa-chevron-circle-down down-vote" onClick={(e) => {this.doVote(e, 1)}}></i>
                                     <br/><p className="pl-2">{this.state.votes.likes}</p>
                                 </div>
-                                <div className="col m-0 p-0">
+                                <div className="col m-0 p-0 cursor-pointer">
                                     <i className="fa fa-chevron-circle-up up-vote" onClick={(e) => {this.doVote(e, -1)}}></i>
                                     <br/><p className="pl-1">{this.state.votes.dislikes}</p>
                                 </div>

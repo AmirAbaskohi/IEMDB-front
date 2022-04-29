@@ -5,16 +5,10 @@ import Watchlist from './watchlist';
 import Signup from './signup';
 import Login from './login';
 import root from './tools';
-import './styles/vazir-fonts.css'
+import './styles/vazir-fonts.css';
 import {redirect} from './tools';
 
 import './styles/main.css';
-
-function MenuElement(props){
-    <li className={"iemdb-user-elemnt" + props.rounded ? "iemdb-rounded-" + props.rounded : ""} >
-        <a href='./login.html' className="color-white" >ورود</a>
-    </li> 
-}
 
 class CartBox extends React.Component{
     constructor(props) {
@@ -74,7 +68,7 @@ class UserMenu extends React.Component{
                 <a><i className="fas fa-user-circle fa-3x iemdb-user"></i></a>
                 <ul>    
                     <li className="iemdb-user-elemnt iemdb-rounded-top">
-                        <a className="color-white" onClick={(e)=>{!this.state.isLoggedIn && redirect(e, <Login/>)}} >
+                        <a className="color-white cursor-pointer" onClick={(e)=>{!this.state.isLoggedIn && redirect(e, <Login/>)}} >
                             {this.state.isLoggedIn ? this.state.email : "ورود"}
                         </a>
                     </li>
@@ -133,7 +127,7 @@ class Navbar extends React.Component {
     render() { 
         return (
             <nav className="navbar navbar-expand navbar-fixed-top navbar-inverse iemdb-navbar">
-                <div className="navbar-brand col-1 pl-0">
+                <div className="navbar-brand col-1 pl-0 cursor-pointer">
                     <a onClick={(e) => redirect(e, <Movies/>)}>
                         <img src="./logo.png" className="iemdb-logo ml-0" alt=""/>
                     </a>

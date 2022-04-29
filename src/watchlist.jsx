@@ -49,7 +49,7 @@ class WatchlistMovie extends React.Component{
                             <div className="iemdb-watchlist-movie-name">
                             <p>
                                 <span className="iemdb-watchlist-movie-title">{this.props.info.name}</span>
-                                <span className="iemdb-watchlist-trash">
+                                <span className="iemdb-watchlist-trash cursor-pointer">
                                     <i className="fas fa-trash color-red" onClick={(e) => {this.doDelete(e)}}></i>
                                 </span>
                             </p>
@@ -85,7 +85,7 @@ class WatchlistRecomMovie extends React.Component{
     render(){
         return(
             <div className="col">
-                <div className="iemdb-watchlist-recom-movie">
+                <div className="iemdb-watchlist-recom-movie cursor-pointer">
                     <img src={this.props.info.image} className="iemdb-watchlist-recom-movie-image" alt=""/>
                     <div className="iemdb-watchlist-recom-movie-overlay" onClick={(e) => {redirect(e, <Movie movieId = {this.props.info.id}/>)}}>
                         {this.props.info.name} <br /><br /> {this.props.info.imdbRate}

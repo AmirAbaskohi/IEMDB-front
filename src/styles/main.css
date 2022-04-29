@@ -194,3 +194,7 @@ input:focus{
 .loader-margin{
     margin-top: 20%;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}

@@ -11,7 +11,7 @@ import './styles/movies.css'
 function ActorMovie(props){
     return(
         <div className="col-4">
-            <div className="iemdb-actor-movie">
+            <div className="iemdb-actor-movie cursor-pointer">
                 <img src={props.image} className="iemdb-actor-movie-image" alt=""/>
                 <div onClick={(e) => {redirect(e, <Movie movieId = {props.id}/>)}} className="iemdb-actor-movie-overlay">{props.name} <br /><br /> {props.imdbRate}</div>
             </div>
