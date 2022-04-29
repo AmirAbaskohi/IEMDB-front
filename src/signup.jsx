@@ -23,7 +23,7 @@ class Signup extends React.Component{
                 <div className="col-4"> 
                     <form className="login-form-container">
                         <div className="login-form-element">
-                            <a onClick={(e) => redirect(e, Movies)}><img src="./login-logo.png" className="login-form-logo" alt=""/></a>
+                            <a onClick={(e) => redirect(e, <Movies/>)}><img src="./login-logo.png" className="login-form-logo" alt=""/></a>
                         </div>
 
                         <IEInput type="email" nameEn = "username" nameFa = "نام کاربری" onChange={this.handleUsernameInput}/>
@@ -36,7 +36,7 @@ class Signup extends React.Component{
                         <div className="login-form-element">
                             <p className="login-form-label">
                                 حساب کاربری دارید؟
-                                <a className="login-form-link" onClick={(e) => redirect(e, Login)}>ورود</a>
+                                <a className="login-form-link" onClick={(e) => redirect(e, <Login/>)}>ورود</a>
                             </p>
                         </div>
                     </form>

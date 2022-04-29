@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './navbar';
 import Movie from './movie';
-import root from './tools';
+import root, { redirect } from './tools';
 
 import './styles/main.css'
 import './styles/actor.css'
@@ -12,9 +12,9 @@ function ActorMovie(props){
         <div className="col-4">
             <div className="iemdb-actor-movie">
                 <img src={props.image} className="iemdb-actor-movie-image" alt=""/>
-                <div onClick={(e) => {e.preventDefault();console.log("HEllO")}} className="iemdb-actor-movie-overlay">{props.name} <br /><br /> {props.imdbRate}</div>
+                <div onClick={(e) => {redirect(e, <Movie movieId = {props.id}/>)}} className="iemdb-actor-movie-overlay">{props.name} <br /><br /> {props.imdbRate}</div>
             </div>
-        </div>
+        </div>  
     )
 }
 
@@ -27,7 +27,8 @@ class Actor extends React.Component{
     render(){
         const movies = []
         for(var index in this.state.movies){
-            movies.push(<ActorMovie 
+            movies.push(<ActorMovie
+                            id = {this.state.movies[index].id}
                             image = {this.state.movies[index].image}
                             name={this.state.movies[index].name} 
                             imdbRate={this.state.movies[index].imdbRate} 
@@ -36,7 +37,7 @@ class Actor extends React.Component{
 
         return(
             <div>
-                 <Navbar/>
+                 <Navbar showBox = "true"/>
 
                 <div className="main-container">
                     <div className="row mr-0">
@@ -76,9 +77,13 @@ class Actor extends React.Component{
     }
 
     componentDidMount = () => {      
-        fetch('http://localhost:8080/actor/' + this.props.actorId)
+        fetch('http://localhost:8080/actors/' + this.props.actorId)
             .then(response => response.json())
-            .then(data => {this.setState(data.value)});  
+            .then(data => {this.setState(data.value)});
+
+            fetch('http://localhost:8080/actors/' + this.props.actorId + "/movies")
+            .then(response => response.json())
+            .then(data => {this.setState(prevState => ({movies : data.value}))});
     }
 }
 

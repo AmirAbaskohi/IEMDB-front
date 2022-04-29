@@ -7,11 +7,12 @@ import Movie from './movie';
 import Navbar from './navbar';
 
 import root from './tools';
+import {redirect} from './tools';
 
 function MovieItem(props){
     return(
         <div className="col-3 iemdb-movies-movie ">
-            <a onClick={(e) => {e.preventDefault(); root.render(<Movie movieId = {props.movieId}/>)}}>
+            <a onClick={(e) => {e.preventDefault(); redirect(e, <Movie movieId = {props.movieId}/>)}}>
                 <div><p>{props.movieName}<br/><br/>{props.movieRate}</p></div>
                 <img src={props.imgAddrs} alt=""/>
             </a>
@@ -40,7 +41,7 @@ class Movies extends React.Component{
 
         return (
             <div>
-                <Navbar/>
+                <Navbar showBox = "true"/>
 
                 <div className="main-container">
                     <div className="row width-100 mt-5">
@@ -66,7 +67,6 @@ class Movies extends React.Component{
         fetch('http://localhost:8080/movies')
             .then(response => response.json())
             .then(data => this.setState(data.value))
-        console.log(this.state.id)
     }
     
 }

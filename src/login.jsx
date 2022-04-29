@@ -42,7 +42,7 @@ class Login extends React.Component{
                 <div className="col-4"> 
                     <form className="login-form-container" onSubmit={(e) => this.doLogin(e)}>
                         <div className="login-form-element">
-                            <a onClick={(e) => redirect(e, Movies)}><img src="./login-logo.png" className="login-form-logo" alt=""/></a>
+                            <a onClick={(e) => redirect(e, <Movies/>)}><img src="./login-logo.png" className="login-form-logo" alt=""/></a>
                         </div>
 
                         <IEInput type="email" nameEn = "username" nameFa = "نام کاربری" onChange={this.handleUsernameInput}/>
@@ -53,7 +53,7 @@ class Login extends React.Component{
                         <div className="login-form-element">
                             <p className="login-form-label" dir="rtl">
                                 حساب کاربری ندارید؟
-                                <a className="login-form-link" onClick={(e) => redirect(e, Signup)}>ثبت‌ نام</a>
+                                <a className="login-form-link" onClick={(e) => redirect(e, <Signup/>)}>ثبت‌ نام</a>
                             </p>
                         </div>
                     </form>
@@ -100,15 +100,13 @@ class Login extends React.Component{
         const checkResponse = (res) =>{
             console.log(res)
             if(res.status == 200){
-                // root.render(<Movies/>)
+                root.render(<Movies/>)
             }
         }
 
-	    fetch('http://localhost:8080/account', requestOptions)
-	        .then(response => checkResponse(response))
-	        .then(data => data);
-
-        
+	    fetch('http://localhost:8080/account/login', requestOptions)
+	        .then(response => checkResponse(response))  
+	        .then(data => console.log(data));
     }
 }
 

@@ -8,5 +8,5 @@ import Movie from './movie';
 import Actor from './actor';
 
 root.render(
-  <Actor actorId = "40"/>
+  <Movies/>
 );
