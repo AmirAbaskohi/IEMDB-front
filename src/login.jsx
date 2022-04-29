@@ -4,6 +4,7 @@ import Movies from './movies';
 import './styles/main.css'
 import './styles/login.css'
 import Signup from './signup';
+import './styles/vazir-fonts.css'
 
 import root from './tools';
 import {redirect} from './tools';

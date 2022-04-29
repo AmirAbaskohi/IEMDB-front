@@ -4,6 +4,7 @@ import Movie from './movie';
 import Navbar from './navbar';
 import './styles/main.css';
 import './styles/watchlist.css'
+import './styles/vazir-fonts.css'
 
 import root from './tools';
 import {redirect} from './tools';

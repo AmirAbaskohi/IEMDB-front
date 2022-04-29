@@ -5,6 +5,7 @@ import {IEInput, IESubmitButton} from './login';
 import Login from './login';
 import './styles/main.css'
 import './styles/login.css'
+import './styles/vazir-fonts.css'
 
 import root from './tools';
 import {redirect} from './tools';

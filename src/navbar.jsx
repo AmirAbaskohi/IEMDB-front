@@ -5,6 +5,7 @@ import Watchlist from './watchlist';
 import Signup from './signup';
 import Login from './login';
 import root from './tools';
+import './styles/vazir-fonts.css'
 import {redirect} from './tools';
 
 import './styles/main.css';

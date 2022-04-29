@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './navbar';
 import Movie from './movie';
 import root, { redirect } from './tools';
+import './styles/vazir-fonts.css'
 
 import './styles/main.css'
 import './styles/actor.css'

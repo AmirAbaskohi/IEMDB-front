@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client';
 import ReactStars from "react-rating-stars-component";
 import './styles/main.css'
 import './styles/movie.css'
+import './styles/vazir-fonts.css'
 
 import { redirect } from './tools';
 
