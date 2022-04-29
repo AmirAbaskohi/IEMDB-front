@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/main.css'
 import './styles/movies.css'
-// import './styles/vazir-fonts.css'
+import './styles/vazir-fonts.css'
 import Movie from './movie';
 import Navbar from './navbar';
 
