@@ -5,6 +5,8 @@ import './styles/movies.css'
 import './styles/vazir-fonts.css'
 import Movie from './movie';
 import Navbar from './navbar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
 import {redirect} from './tools';
@@ -37,12 +39,22 @@ class Movies extends React.Component{
                             key={this.state.movies[index].id}/>)
         }
 
-        console.log(this.state.isLoaded)
-
-
         return (
             <div>
                 <Navbar showBox = "true"/>
+
+                <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                toastStyle={{ backgroundColor: "#b12025", color: "white" }}
+                />
 
                 <div className="main-container">
                     {this.state.isLoaded &&
@@ -82,6 +94,30 @@ class Movies extends React.Component{
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 200) {
                 this.setState({"isLoaded": true, "movies": JSON.parse(http.responseText).value})
+            }
+            else if (http.readyState == 4 && (http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404)) {
+                for (var error in JSON.parse(http.responseText).errors) {
+                    toast.error(error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        });
+                }
+            }
+            else if (http.readyState == 4) {
+                toast.error('Something went wrong!', {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         }
         http.send();
