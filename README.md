@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# Introduction
+This the front-end of IEMDB which is a clone of IMDB movie rating website. This is developed using `React`.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
