@@ -30,17 +30,16 @@ class Movies extends React.Component{
     doSort = (event, sortBy) => {
         event.preventDefault();
         if(this.state.sortBy === sortBy){
-            this.setState(prevState => ({sortBy : ""}));
+            this.setState(prevState => ({sortBy : "", "isLoaded": false}), this.componentDidMount);
         }
         else {
-            this.setState(prevState => ({sortBy : sortBy}), this.componentDidMount);
+            this.setState(prevState => ({sortBy : sortBy, "isLoaded": false}), this.componentDidMount);
         }
-        this.setState(prevState => ({"isLoaded": false}));
     }
 
     doSearch = (searchType, searchText) => {
-        this.setState(prevState => ({searchType : searchType, searchText : searchText}), this.componentDidMount);
-        this.setState(prevState => ({"isLoaded": false}));
+        this.setState(prevState => ({searchType : searchType, searchText : searchText, "isLoaded": false}),
+         this.componentDidMount);
     }
 
     render(){
