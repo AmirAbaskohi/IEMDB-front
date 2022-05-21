@@ -25,8 +25,8 @@ class WatchlistMovie extends React.Component{
         var http = new XMLHttpRequest();
         var params = '?movieId=' + this.props.info.id;
         http.open('DELETE', 'http://localhost:8080/user/watchlist' + params, true);
-
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
 
         http.onreadystatechange = () => {
             if(http.readyState === 4 && http.status === 202) {
@@ -201,6 +201,7 @@ class Watchlist extends React.Component{
         var http1 = new XMLHttpRequest();
         http1.open('GET', 'http://localhost:8080/user/watchlist', true);
         http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http1.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http1.onreadystatechange = () => {
             if(http1.readyState === 4 && http1.status === 200) {
                 this.setState(prevState => ({watchlist : JSON.parse(http1.responseText).value}))
@@ -236,6 +237,7 @@ class Watchlist extends React.Component{
         var http2 = new XMLHttpRequest();
         http2.open('GET', 'http://localhost:8080/user/recommendationList', true);
         http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http2.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http2.onreadystatechange = () => {
             if(http2.readyState === 4 && http2.status === 200) {  
                 this.setState(prevState => ({recommendations : JSON.parse(http2.responseText).value}))

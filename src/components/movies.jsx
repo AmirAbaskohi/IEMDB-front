@@ -128,7 +128,8 @@ class Movies extends React.Component{
         }
 
         http.open('GET', 'http://localhost:8080/movies' + params, true);
-        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 200) {
                 this.setState(prevState => ({"isLoaded": true}))

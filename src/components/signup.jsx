@@ -113,6 +113,7 @@ class Signup extends React.Component{
         http.onreadystatechange = () =>  {
             if(http.readyState == 4){
                 if(http.status == 200) {
+                    localStorage.setItem("jwt", JSON.parse(http.responseText).value.jwt)
                     root.render(<Movies/>)
                 }
                 else if ((http.status == 400) || (http.status == 401) ||
