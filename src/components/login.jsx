@@ -98,7 +98,7 @@ class Login extends React.Component{
         http.onreadystatechange = () =>  {
             if(http.readyState == 4){
                 if(http.status == 200) {
-                    root.render(<Movies/>)
+                    window.location.replace("http://localhost:3000/movies")
                 }
                 else if ((http.status == 400) || (http.status == 401) ||
                          (http.status == 403) || (http.status == 404)){

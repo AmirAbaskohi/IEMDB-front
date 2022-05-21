@@ -2,7 +2,9 @@ import React from 'react';
 import Login from './components/login';
 import Movies from './components/movies';
 import Signup from './components/signup';
+import Movie from './components/movie';
 import Watchlist from './components/watchlist';
+import Actor from './components/actor';
 import { render } from "react-dom";
 import { Link } from 'react-router-dom';
 import './styles/main.css'
@@ -23,6 +25,8 @@ const App = () => {
     { path: "*", element: <NotFound /> },
     { path: "/", element: <Movies /> },
     { path: "/movies", element: <Movies /> },
+    { path: "/movies/:id", element: <Movie /> },
+    { path: "/actors/:id", element: <Actor /> },
     { path: "/watchlist", element: <Watchlist /> },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <Signup /> }

@@ -13,7 +13,7 @@ import {redirect} from './tools';
 function MovieItem(props){
     return(
         <div className="col-3 iemdb-movies-movie cursor-pointer">
-            <a onClick={(e) => {e.preventDefault(); redirect(e, <Movie movieId = {props.movieId}/>)}}>
+            <a href={'/movies/'+ props.movieId}>
                 <div><p>{props.movieName}<br/><br/>{props.movieRate}</p></div>
                 <img src={props.imgAddrs} alt=""/>
             </a>
