@@ -108,17 +108,17 @@ class UserMenu extends React.Component{
                 <a><i className="fas fa-user-circle fa-3x iemdb-user"></i></a>
                 <ul>    
                     <li className="iemdb-user-elemnt iemdb-rounded-top">
-                        <a className="color-white cursor-pointer" onClick={(e)=>{!this.state.isLoggedIn && redirect(e, <Login/>)}} >
+                        <a className="color-white cursor-pointer" href={!this.state.isLoggedIn ? '/login' : '#'} >
                             {this.state.isLoggedIn ? this.state.email : "ورود"}
                         </a>
                     </li>
                     <li className="iemdb-user-elemnt" style={{display: this.state.isLoggedIn ? "block" : "none"}}>
-                        <a href='./login.html' className="color-white" onClick={(e)=>{this.state.isLoggedIn && redirect(e, <Watchlist/>)}}>
+                        <a className="color-white" href='/watchlist'>
                             لیست تماشا
                         </a>
                     </li> 
                     <li className="iemdb-user-elemnt iemdb-rounded-bottom">
-                        <a href='./signup.html' className="color-white" onClick={(e)=>{this.state.isLoggedIn ? this.doLogout(e) : redirect(e, <Signup/>)}}>
+                        <a href={this.state.isLoggedIn ? '/login' : '/signu' } className="color-white" onClick={(e)=>{if(this.state.isLoggedIn) this.doLogout(e)}}>
                             {this.state.isLoggedIn ? "خروج" : "ثبت نام"}
                         </a>
                     </li>       
@@ -139,11 +139,11 @@ class UserMenu extends React.Component{
                 if(JSON.parse(http.responseText).success == true){   
                     this.setState(prevState => ({isLoggedIn : false}));
                     localStorage.removeItem('jwt');
+                    window.location.replace("http://localhost:3000/login")
                 }
             }
         }
         http.send();
-        redirect(event, <Movies/>);
     }
 
     componentDidMount() {     
@@ -170,8 +170,8 @@ class Navbar extends React.Component {
         return (
             <nav className="navbar navbar-expand navbar-fixed-top navbar-inverse iemdb-navbar">
                 <div className="navbar-brand col-1 pl-0 cursor-pointer">
-                    <a onClick={(e) => redirect(e, <Movies/>)}>
-                        <img src="./logo.png" className="iemdb-logo ml-0" alt=""/>
+                    <a href="/movies">
+                        <img src="/logo.png" className="iemdb-logo ml-0" alt=""/>
                     </a>
                 </div>
 

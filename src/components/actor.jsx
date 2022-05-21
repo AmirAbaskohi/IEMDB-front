@@ -16,7 +16,7 @@ function ActorMovie(props){
         <div className="col-4">
             <div className="iemdb-actor-movie cursor-pointer">
                 <img src={props.image} className="iemdb-actor-movie-image" alt=""/>
-                <div onClick={(e) => {redirect(e, <Movie movieId = {props.id}/>)}} className="iemdb-actor-movie-overlay">{props.name} <br /><br /> {props.imdbRate}</div>
+                <a href={'/movies/' + props.id} className="iemdb-actor-movie-overlay">{props.name} <br /><br /> {props.imdbRate}</a>
             </div>
         </div>  
     )
@@ -24,7 +24,9 @@ function ActorMovie(props){
 
 class Actor extends React.Component{
     constructor(props) {
+        const location = window.location.href;
         super(props);
+        this.actorId = location.split("/")[4];
         this.state = {}
     }
 
@@ -41,9 +43,9 @@ class Actor extends React.Component{
 
         return(
             <div>
-                 <Navbar showBox = "true"/>
+                <Navbar showBox = "true"/>
 
-                 <ToastContainer
+                <ToastContainer
                 position="bottom-center"
                 autoClose={3000}
                 hideProgressBar={false}
@@ -95,7 +97,7 @@ class Actor extends React.Component{
 
     componentDidMount = () => {
         var http1 = new XMLHttpRequest();
-        http1.open('GET', 'http://localhost:8080/actors/' + this.props.actorId, true);
+        http1.open('GET', 'http://localhost:8080/actors/' + this.actorId, true);
         http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http1.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http1.onreadystatechange = () => {
@@ -103,8 +105,9 @@ class Actor extends React.Component{
                 this.setState(JSON.parse(http1.responseText).value)
             }
             else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
-                for (var error in JSON.parse(http1.responseText).errors) {
-                    toast.error(error, {
+                let length1 = JSON.parse(http1.responseText).errors.length;
+                for (let i = 0; i < length1 ; i++) {
+                    toast.error(JSON.parse(http1.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,
@@ -130,7 +133,7 @@ class Actor extends React.Component{
         http1.send();
 
         var http2 = new XMLHttpRequest();
-        http2.open('GET', 'http://localhost:8080/actors/' + this.props.actorId + "/movies", true);
+        http2.open('GET', 'http://localhost:8080/actors/' + this.actorId + "/movies", true);
         http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http2.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http2.onreadystatechange = () => {
@@ -138,8 +141,9 @@ class Actor extends React.Component{
                 this.setState(prevState => ({movies : JSON.parse(http2.responseText).value}))
             }
             else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 403) || (http2.status == 404))) {
-                for (var error in JSON.parse(http2.responseText).errors) {
-                    toast.error(error, {
+                let length1 = JSON.parse(http2.responseText).errors.length;
+                for (let i = 0; i < length1 ; i++) {
+                    toast.error(JSON.parse(http2.responseText).errors[i], {
                         position: "bottom-center",
                         autoClose: 3000,
                         hideProgressBar: false,

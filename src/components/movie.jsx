@@ -16,7 +16,7 @@ function MovieActor(props){
         <div className="col-3">
             <div className="iemdb-movie-actor cursor-pointer">
                 <img src={props.image} className="iemdb-movie-actor-image" alt=""/>
-                <a onClick={(e) => {redirect(e, <Actor actorId = {props.id}/>)}}><div className="iemdb-movie-actor-overlay">{props.name} <br />Age: {props.age}</div></a>
+                <a href={"/actors/" + props.id}><div className="iemdb-movie-actor-overlay">{props.name} <br />Age: {props.age}</div></a>
             </div>
         </div>
     );
@@ -312,7 +312,9 @@ class MovieInfo extends React.Component{
 
 class Movie extends React.Component{
     constructor(props) {
+        const location = window.location.href;
         super(props);
+        this.movideId = location.split("/")[4];
         this.state = {"isLoaded":false};
     }
 
@@ -414,7 +416,7 @@ class Movie extends React.Component{
 
     componentDidMount = () => {
         var http1 = new XMLHttpRequest();
-        http1.open('GET', 'http://localhost:8080/movies/' + this.props.movieId, true);
+        http1.open('GET', 'http://localhost:8080/movies/' + this.movideId, true);
         http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http1.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http1.onreadystatechange = () => {
@@ -451,7 +453,7 @@ class Movie extends React.Component{
         http1.send();
 
         var http2 = new XMLHttpRequest();
-        http2.open('GET', 'http://localhost:8080/movies/' + this.props.movieId + "/comments", true);
+        http2.open('GET', 'http://localhost:8080/movies/' + this.movideId + "/comments", true);
         http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http2.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http2.onreadystatechange = () => {
@@ -487,7 +489,7 @@ class Movie extends React.Component{
         http2.send();
 
         var http3 = new XMLHttpRequest();
-        http3.open('GET', 'http://localhost:8080/movies/' + this.props.movieId + "/actors", true);
+        http3.open('GET', 'http://localhost:8080/movies/' + this.movideId + "/actors", true);
         http3.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
         http3.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http3.onreadystatechange = () => {
