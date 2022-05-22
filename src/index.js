@@ -5,7 +5,7 @@ import Signup from './components/signup';
 import Movie from './components/movie';
 import Watchlist from './components/watchlist';
 import Actor from './components/actor';
-import { render } from "react-dom";
+import root from "./components/tools";
 import { Link } from 'react-router-dom';
 import { SSO } from './components/sso';
 import './styles/main.css'
@@ -43,5 +43,4 @@ const AppWrapper = () => {
     </Router>
   );
 };
-
-render(<AppWrapper />, document.getElementById("root"));
+root.render(<AppWrapper />)

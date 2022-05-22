@@ -81,7 +81,7 @@ class Movies extends React.Component{
                                     </li>
                                     <li className="iemdb-user-elemnt iemdb-rounded-bottom" dir="rtl"
                                         style={{backgroundColor:this.state.sortBy === "imdb" ? "rgba(177, 32, 37, 0.9)" : "rgba(177, 32, 37, 0.6)"}}
-                                        onClick={(e) => this.dwinoSort(e, "imdb")}>
+                                        onClick={(e) => this.doSort(e, "imdb")}>
                                         <a href='#' className="color-white">امتیاز IMDB</a>
                                     </li>
                                 </ul> 
