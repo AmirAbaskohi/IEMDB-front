@@ -134,6 +134,12 @@ class Signup extends React.Component{
         }
         http.send();
     }
+
+    componentDidMount = () => {
+        if(localStorage.getItem("jwt") != null){
+            window.location.replace("http://localhost:3000/movies")
+        }
+    }
 }
 
 export default Signup;

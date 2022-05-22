@@ -35,8 +35,11 @@ function handleSSO() {
     getToken(values[1]);
 }
 
-const SSO = () => (
+const SSO = () => {
+    if(localStorage.getItem("jwt") != null){
+        window.location.replace("http://localhost:3000/movies")
+    }
     handleSSO()
-);
+};
 
 export {SSO};
