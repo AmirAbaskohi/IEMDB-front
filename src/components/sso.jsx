@@ -37,9 +37,9 @@ function handleSSO() {
 
 const SSO = () => {
     if(localStorage.getItem("jwt") != null){
-        window.location.replace("http://localhost:3000/movies")
+        window.location.replace("http://localhost:3000/movies");
     }
-    handleSSO()
+    handleSSO();
 };
 
 export {SSO};
