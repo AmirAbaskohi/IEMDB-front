@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
-import {redirect} from './tools';
+import {toastConfig} from './tools';
 
 function MovieItem(props){
     return(
@@ -131,37 +131,27 @@ class Movies extends React.Component{
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http.onreadystatechange = () => {
+            
+            console.log(http.status);
             if(http.readyState == 4 && http.status == 200) {
                 this.setState(prevState => ({"isLoaded": true}))
                 this.setState(prevState => ({"movies": JSON.parse(http.responseText).value}))
             }
-            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+            else if (http.readyState == 4 && http.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length = JSON.parse(http.responseText).errors.length;
                 for (let i = 0 ; i < length ; i++) {
-                    toast.error(JSON.parse(http.responseText).errors[i], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
                 }
             }
             else if (http.readyState == 4) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http.send();
+        
     }
 }
 

@@ -7,7 +7,7 @@ import '../styles/watchlist.css'
 import '../styles/vazir-fonts.css'
 
 import root from './tools';
-import {redirect} from './tools';
+import {redirect, toastConfig} from './tools';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -35,27 +35,11 @@ class WatchlistMovie extends React.Component{
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
                 let length_remove_watchlist = JSON.parse(http.responseText).errors.length;
                 for (let i = 0; i < length_remove_watchlist ; i++) {
-                    toast.error(JSON.parse(http.responseText).errors[i], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
                 }
             }
             else if (http.readyState == 4) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http.send();
@@ -209,27 +193,11 @@ class Watchlist extends React.Component{
             else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
                 let length_get_watchlist = JSON.parse(http1.responseText).errors.length;
                 for (let i = 0; i < length_get_watchlist ; i++) {
-                    toast.error(JSON.parse(http1.responseText).errors[i], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http1.responseText).errors[i], toastConfig);
                 }
             }
             else if (http1.readyState == 4) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http1.send();
@@ -245,27 +213,11 @@ class Watchlist extends React.Component{
             else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 403) || (http2.status == 404))) {
                 let length_get_recomlist = JSON.parse(http2.responseText).errors.length;
                 for (let i = 0; i < length_get_recomlist ; i++) {
-                    toast.error(JSON.parse(http2.responseText).errors[i], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http2.responseText).errors[i], toastConfig);
                 }
             }
             else if (http2.readyState == 4) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http2.send();

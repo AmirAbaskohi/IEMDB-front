@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
-import {redirect} from './tools';
+import {redirect, toastConfig} from './tools';
 
 
 class Signup extends React.Component{
@@ -120,27 +120,11 @@ class Signup extends React.Component{
                          (http.status == 403) || (http.status == 404)){
                     let length = JSON.parse(http.responseText).errors.length;
                     for (let i = 0 ; i < length ; i++) {
-                        toast.error(JSON.parse(http.responseText).errors[i], {
-                            position: "bottom-center",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        });
+                        toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
                     }
                 }
                 else {
-                    toast.error('Something went wrong!', {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    toast.error('Something went wrong!', toastConfig);
                 }
             }
         }

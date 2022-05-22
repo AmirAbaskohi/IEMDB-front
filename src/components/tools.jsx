@@ -11,5 +11,15 @@ const redirect = (event, Component) =>{
     root.render(Component)
 }
 
+const toastConfig = {
+    position: "bottom-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    }
+
 export default root;
-export {redirect};
+export {redirect, toastConfig};

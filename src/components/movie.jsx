@@ -106,27 +106,11 @@ function MovieCommentInput(props){
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
                 let length_add_comment = JSON.parse(http.responseText).errors.length;
                 for (let i = 0; i < length_add_comment ; i++) {
-                    toast.error(JSON.parse(http.responseText).errors[i], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
                 }
             }
             else if (http.readyState == 4) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http.send(JSON.stringify(params));
@@ -183,27 +167,11 @@ class MovieInfo extends React.Component{
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
                 let length_rate_movie = JSON.parse(http.responseText).errors.length;
                 for (let i = 0; i < length_rate_movie ; i++) {
-                    toast.error(JSON.parse(http.responseText).errors[i], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
                 }
             }
             else if (http.readyState == 4) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http.send();
@@ -224,27 +192,11 @@ class MovieInfo extends React.Component{
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
                 let length_add_watchlist = JSON.parse(http.responseText).errors.length;
                 for (let i = 0; i < length_add_watchlist ; i++) {
-                    toast.error(JSON.parse(http.responseText).errors[i], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
                 }
             }
             else if (http.readyState == 4) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http.send();
@@ -427,27 +379,11 @@ class Movie extends React.Component{
             else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
                 let length1 = JSON.parse(http1.responseText).errors.length;
                 for (let i = 0; i < length1 ; i++) {
-                    toast.error(JSON.parse(http1.responseText).errors[i], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http1.responseText).errors[i], toastConfig);
                 }
             }
             else if (http1.readyState == 4) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http1.send();
@@ -463,27 +399,11 @@ class Movie extends React.Component{
             else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 403) || (http2.status == 404))) {
                 let length2 = JSON.parse(http2.responseText).errors.length;
                 for (let j = 0; j < length2 ; j++) {
-                    toast.error(JSON.parse(http2.responseText).errors[j], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http2.responseText).errors[j], toastConfig);
                 }
             }
             else if (http2.readyState == 4 && http2.status != 401) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http2.send();
@@ -499,27 +419,11 @@ class Movie extends React.Component{
             else if (http3.readyState == 4 && ((http3.status == 400) || (http3.status == 403) || (http3.status == 404))) {
                 let length3 = JSON.parse(http3.responseText).errors.length;
                 for (let k = 0; k < length3 ; k++) {
-                    toast.error(JSON.parse(http3.responseText).errors[k], {
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        });
+                    toast.error(JSON.parse(http3.responseText).errors[k], toastConfig);
                 }
             }
             else if (http3.readyState == 4 && http3.status != 401) {
-                toast.error('Something went wrong!', {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.error('Something went wrong!', toastConfig);
             }
         }
         http3.send();
