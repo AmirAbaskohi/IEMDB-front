@@ -6,7 +6,7 @@ import '../styles/vazir-fonts.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { redirect } from './tools';
+import { redirect, toastConfig } from './tools';
 
 import Navbar from './navbar';
 import Actor from './actor';
@@ -46,6 +46,10 @@ class MovieComment extends React.Component{
         http.onreadystatechange = () =>  {
             if(http.readyState == 4 && http.status == 202) {
                 this.setState(JSON.parse(http.responseText).value)
+            }
+            else if (http.readyState == 4 && http.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
             }
         }
         http.send();
@@ -103,7 +107,11 @@ function MovieCommentInput(props){
                 document.getElementById("commentTextArea").value = "";
                 props.action(JSON.parse(http.responseText).value);
             }
-            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+            else if (http.readyState == 4 && http.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length_add_comment = JSON.parse(http.responseText).errors.length;
                 for (let i = 0; i < length_add_comment ; i++) {
                     toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
@@ -164,7 +172,11 @@ class MovieInfo extends React.Component{
                 this.setState(prevState => ({numberOfRates : JSON.parse(http.responseText).value.numberOfRates}))
                 this.setState(prevState => ({showStars : false}))
             }
-            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+            else if (http.readyState == 4 && http.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length_rate_movie = JSON.parse(http.responseText).errors.length;
                 for (let i = 0; i < length_rate_movie ; i++) {
                     toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
@@ -189,7 +201,11 @@ class MovieInfo extends React.Component{
             if(http.readyState == 4 && http.status == 202) {
                 this.setState(prevState => ({existsInWatchlist : true}))
             }
-            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+            else if (http.readyState == 4 && http.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length_add_watchlist = JSON.parse(http.responseText).errors.length;
                 for (let i = 0; i < length_add_watchlist ; i++) {
                     toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
@@ -376,7 +392,11 @@ class Movie extends React.Component{
                 this.setState(JSON.parse(http1.responseText).value)
                 this.setState(prevState => ({isLoaded : true}))
             }
-            else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
+            else if (http1.readyState == 4 && http1.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 404))) {
                 let length1 = JSON.parse(http1.responseText).errors.length;
                 for (let i = 0; i < length1 ; i++) {
                     toast.error(JSON.parse(http1.responseText).errors[i], toastConfig);
@@ -396,7 +416,11 @@ class Movie extends React.Component{
             if(http2.readyState == 4 && http2.status == 200) {
                 this.setState(prevState => ({comments : JSON.parse(http2.responseText).value}))
             }
-            else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 403) || (http2.status == 404))) {
+            else if (http2.readyState == 4 && http2.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 404))) {
                 let length2 = JSON.parse(http2.responseText).errors.length;
                 for (let j = 0; j < length2 ; j++) {
                     toast.error(JSON.parse(http2.responseText).errors[j], toastConfig);

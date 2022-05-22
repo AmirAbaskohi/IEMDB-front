@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
-import {redirect} from './tools';
+import {redirect, toastConfig} from './tools';
 
 function IEInput(props){
     return(

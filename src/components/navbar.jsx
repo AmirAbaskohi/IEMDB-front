@@ -6,7 +6,7 @@ import Signup from './signup';
 import Login from './login';
 import root from './tools';
 import '../styles/vazir-fonts.css';
-import {redirect} from './tools';
+import {redirect, toastConfig} from './tools';
 
 import '../styles/main.css';
 
@@ -130,34 +130,23 @@ class UserMenu extends React.Component{
 
     doLogout = (event) => {
         event.preventDefault();
-        var http = new XMLHttpRequest();
-        http.open('POST', 'http://localhost:8080/account/logout', true);
-        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
-
-        http.onreadystatechange = () => {
-            if(http.readyState == 4 && http.status == 200) {
-                if(JSON.parse(http.responseText).success == true){   
-                    this.setState(prevState => ({isLoggedIn : false}));
-                    localStorage.removeItem('jwt');
-                    window.location.replace("http://localhost:3000/login")
-                }
-            }
-        }
-        http.send();
+        this.setState(prevState => ({isLoggedIn : false}));
+        localStorage.removeItem('jwt');
+        window.location.replace("http://localhost:3000/login");
     }
 
     componentDidMount() {     
-        var http1 = new XMLHttpRequest();
-        http1.open('GET', 'http://localhost:8080/account', true);
-        http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
-        http1.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        var http = new XMLHttpRequest();
+        http.open('GET', 'http://localhost:8080/account', true);
+        http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
+        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
 
-        http1.onreadystatechange = () => {
-            if(http1.readyState == 4 && http1.status == 200) {
-                this.setState(JSON.parse(http1.responseText).value)
+        http.onreadystatechange = () => {
+            if(http.readyState == 4 && http.status == 200) {
+                this.setState(JSON.parse(http.responseText).value)
             }
         }
-        http1.send();
+        http.send();
     }
 } 
 

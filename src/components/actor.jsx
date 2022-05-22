@@ -104,7 +104,11 @@ class Actor extends React.Component{
             if(http1.readyState == 4 && http1.status == 200) {
                 this.setState(JSON.parse(http1.responseText).value)
             }
-            else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
+            else if (http1.readyState == 4 && http1.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 404))) {
                 let length1 = JSON.parse(http1.responseText).errors.length;
                 for (let i = 0; i < length1 ; i++) {
                     toast.error(JSON.parse(http1.responseText).errors[i], toastConfig);
@@ -124,7 +128,11 @@ class Actor extends React.Component{
             if(http2.readyState == 4 && http2.status == 200) {
                 this.setState(prevState => ({movies : JSON.parse(http2.responseText).value}))
             }
-            else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 403) || (http2.status == 404))) {
+            else if (http2.readyState == 4 && http2.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 404))) {
                 let length1 = JSON.parse(http2.responseText).errors.length;
                 for (let i = 0; i < length1 ; i++) {
                     toast.error(JSON.parse(http2.responseText).errors[i], toastConfig);

@@ -23,7 +23,7 @@ const NotFound = () => (
 const App = () => {
   let routes = useRoutes([
     { path: "*", element: <NotFound /> },
-    { path: "/", element: <Movies /> },
+    { path: "/", element: <Login /> },
     { path: "/movies", element: <Movies /> },
     { path: "/movies/:id", element: <Movie /> },
     { path: "/actors/:id", element: <Actor /> },

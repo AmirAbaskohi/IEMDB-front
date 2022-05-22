@@ -32,7 +32,11 @@ class WatchlistMovie extends React.Component{
             if(http.readyState === 4 && http.status === 202) {
                 // this.setState(prevState => ({existsInWatchlist : true}))
             }
-            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 403) || (http.status == 404))) {
+            else if (http.readyState == 4 && http.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401)  || (http.status == 404))) {
                 let length_remove_watchlist = JSON.parse(http.responseText).errors.length;
                 for (let i = 0; i < length_remove_watchlist ; i++) {
                     toast.error(JSON.parse(http.responseText).errors[i], toastConfig);
@@ -190,7 +194,11 @@ class Watchlist extends React.Component{
             if(http1.readyState === 4 && http1.status === 200) {
                 this.setState(prevState => ({watchlist : JSON.parse(http1.responseText).value}))
             }
-            else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 403) || (http1.status == 404))) {
+            else if (http1.readyState == 4 && http1.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 404))) {
                 let length_get_watchlist = JSON.parse(http1.responseText).errors.length;
                 for (let i = 0; i < length_get_watchlist ; i++) {
                     toast.error(JSON.parse(http1.responseText).errors[i], toastConfig);
@@ -210,7 +218,11 @@ class Watchlist extends React.Component{
             if(http2.readyState === 4 && http2.status === 200) {  
                 this.setState(prevState => ({recommendations : JSON.parse(http2.responseText).value}))
             }
-            else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 403) || (http2.status == 404))) {
+            else if (http2.readyState == 4 && http2.status == 403){
+                toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
+            }
+            else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 404))) {
                 let length_get_recomlist = JSON.parse(http2.responseText).errors.length;
                 for (let i = 0; i < length_get_recomlist ; i++) {
                     toast.error(JSON.parse(http2.responseText).errors[i], toastConfig);

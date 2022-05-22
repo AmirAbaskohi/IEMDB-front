@@ -81,7 +81,7 @@ class Movies extends React.Component{
                                     </li>
                                     <li className="iemdb-user-elemnt iemdb-rounded-bottom" dir="rtl"
                                         style={{backgroundColor:this.state.sortBy === "imdb" ? "rgba(177, 32, 37, 0.9)" : "rgba(177, 32, 37, 0.6)"}}
-                                        onClick={(e) => this.doSort(e, "imdb")}>
+                                        onClick={(e) => this.dwinoSort(e, "imdb")}>
                                         <a href='#' className="color-white">امتیاز IMDB</a>
                                     </li>
                                 </ul> 
@@ -132,13 +132,13 @@ class Movies extends React.Component{
         http.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http.onreadystatechange = () => {
             
-            console.log(http.status);
             if(http.readyState == 4 && http.status == 200) {
                 this.setState(prevState => ({"isLoaded": true}))
                 this.setState(prevState => ({"movies": JSON.parse(http.responseText).value}))
             }
             else if (http.readyState == 4 && http.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
+                window.location.replace("http://localhost:3000/login")
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length = JSON.parse(http.responseText).errors.length;
