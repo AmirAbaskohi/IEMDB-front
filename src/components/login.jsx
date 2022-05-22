@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
-import {redirect, toastConfig} from './tools';
+import {redirect, toastConfig, CLIENT_ID} from './tools';
 
 function IEInput(props){
     return(
@@ -61,6 +61,10 @@ class Login extends React.Component{
                         <IEInput type="password" nameEn = "password" nameFa = "رمز عبور" onChange={this.handlePasswordInput}/>
 
                         <IESubmitButton label = "ورود"/>
+
+                        <a className="btn btn-block btn-social btn-github color-white" href={"https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID + "&scope=user"}>
+                            <i className="fab fa-github"></i> ورود با گیتهاب
+                        </a>
                         
                         <div className="login-form-element">
                             <p className="login-form-label" dir="rtl">

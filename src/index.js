@@ -7,6 +7,7 @@ import Watchlist from './components/watchlist';
 import Actor from './components/actor';
 import { render } from "react-dom";
 import { Link } from 'react-router-dom';
+import { SSO } from './components/sso';
 import './styles/main.css'
 import {
   BrowserRouter as Router,
@@ -29,7 +30,8 @@ const App = () => {
     { path: "/actors/:id", element: <Actor /> },
     { path: "/watchlist", element: <Watchlist /> },
     { path: "/login", element: <Login /> },
-    { path: "/signup", element: <Signup /> }
+    { path: "/signup", element: <Signup /> },
+    { path: "/sso", element: <SSO /> }
   ]);
   return routes;
 };
