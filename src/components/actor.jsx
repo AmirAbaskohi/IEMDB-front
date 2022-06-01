@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './navbar';
 import Movie from './movie';
-import root, { redirect, toastConfig} from './tools';
+import root, { redirect, toastConfig, PUBLIC_URL, BACK_URL} from './tools';
 import '../styles/vazir-fonts.css'
 
 import '../styles/main.css'
@@ -97,7 +97,7 @@ class Actor extends React.Component{
 
     componentDidMount = () => {
         var http1 = new XMLHttpRequest();
-        http1.open('GET', 'http://localhost:8080/actors/' + this.actorId, true);
+        http1.open('GET', BACK_URL + '/actors/' + this.actorId, true);
         http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http1.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http1.onreadystatechange = () => {
@@ -106,7 +106,7 @@ class Actor extends React.Component{
             }
             else if (http1.readyState == 4 && http1.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace(PUBLIC_URL + "/login")
             }
             else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 404))) {
                 let length1 = JSON.parse(http1.responseText).errors.length;
@@ -121,7 +121,7 @@ class Actor extends React.Component{
         http1.send();
 
         var http2 = new XMLHttpRequest();
-        http2.open('GET', 'http://localhost:8080/actors/' + this.actorId + "/movies", true);
+        http2.open('GET', BACK_URL + '/actors/' + this.actorId + "/movies", true);
         http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http2.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http2.onreadystatechange = () => {
@@ -130,7 +130,7 @@ class Actor extends React.Component{
             }
             else if (http2.readyState == 4 && http2.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace( PUBLIC_URL + "/login")
             }
             else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 401) || (http2.status == 404))) {
                 let length1 = JSON.parse(http2.responseText).errors.length;

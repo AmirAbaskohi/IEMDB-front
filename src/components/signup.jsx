@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import Movies from './movies';
 import {IEInput, IESubmitButton} from './login';
 import Login from './login';
@@ -10,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
-import {redirect, toastConfig, CLIENT_ID} from './tools';
+import {redirect, toastConfig, CLIENT_ID, PUBLIC_URL, BACK_URL} from './tools';
 
 
 class Signup extends React.Component{
@@ -112,7 +111,7 @@ class Signup extends React.Component{
         var params = '?' + 'name=' + this.state.name + '&userEmail=' + this.state.userEmail 
         + '&birthDate=' + this.state.birthDate + '&password=' + this.state.password;
 
-        http.open('POST', 'http://localhost:8080/account/signup/' + params, true);
+        http.open('POST', BACK_URL + '/account/signup/' + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.onreadystatechange = () =>  {
             if(http.readyState == 4){
@@ -137,7 +136,7 @@ class Signup extends React.Component{
 
     componentDidMount = () => {
         if(localStorage.getItem("jwt") != null){
-            window.location.replace("http://localhost:3000/movies")
+            window.location.replace(PUBLIC_URL + "/movies")
         }
     }
 }

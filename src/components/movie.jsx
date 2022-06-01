@@ -6,7 +6,7 @@ import '../styles/vazir-fonts.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { redirect, toastConfig } from './tools';
+import { PUBLIC_URL, toastConfig, BACK_URL } from './tools';
 
 import Navbar from './navbar';
 import Actor from './actor';
@@ -40,7 +40,7 @@ class MovieComment extends React.Component{
 
         var http = new XMLHttpRequest();
         var params = '?vote=' + score;
-        http.open('PUT', 'http://localhost:8080/comment/' + this.state.id + params, true);
+        http.open('PUT', BACK_URL + '/comment/' + this.state.id + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http.onreadystatechange = () =>  {
@@ -49,7 +49,7 @@ class MovieComment extends React.Component{
             }
             else if (http.readyState == 4 && http.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace(PUBLIC_URL + "/login")
             }
         }
         http.send();
@@ -98,7 +98,7 @@ function MovieCommentInput(props){
             "movieId":props.movieId,
             "text": document.getElementById("commentTextArea").value,
         };
-        http.open('POST', 'http://localhost:8080/comment', true);
+        http.open('POST', BACK_URL + '/comment', true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.setRequestHeader('jwt', localStorage.getItem('jwt'));
 
@@ -109,7 +109,7 @@ function MovieCommentInput(props){
             }
             else if (http.readyState == 4 && http.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace(PUBLIC_URL + "/login")
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length_add_comment = JSON.parse(http.responseText).errors.length;
@@ -162,7 +162,7 @@ class MovieInfo extends React.Component{
         var http = new XMLHttpRequest();
         var params = '?score=' + newRating;
         console.log(newRating)
-        http.open('PUT', 'http://localhost:8080/movies/' + this.state.id + params, true);
+        http.open('PUT', BACK_URL + '/movies/' + this.state.id + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.setRequestHeader('jwt', localStorage.getItem('jwt'));
 
@@ -174,7 +174,7 @@ class MovieInfo extends React.Component{
             }
             else if (http.readyState == 4 && http.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace(PUBLIC_URL + "/login")
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length_rate_movie = JSON.parse(http.responseText).errors.length;
@@ -193,7 +193,7 @@ class MovieInfo extends React.Component{
         event.preventDefault();
         var http = new XMLHttpRequest();
         var params = '?movieId=' + this.state.id;
-        http.open('POST', 'http://localhost:8080/user/watchlist' + params, true);
+        http.open('POST', BACK_URL + '/user/watchlist' + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.setRequestHeader('jwt', localStorage.getItem('jwt'));
 
@@ -203,7 +203,7 @@ class MovieInfo extends React.Component{
             }
             else if (http.readyState == 4 && http.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace(PUBLIC_URL + "/login")
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length_add_watchlist = JSON.parse(http.responseText).errors.length;
@@ -384,7 +384,7 @@ class Movie extends React.Component{
 
     componentDidMount = () => {
         var http1 = new XMLHttpRequest();
-        http1.open('GET', 'http://localhost:8080/movies/' + this.movideId, true);
+        http1.open('GET', BACK_URL + '/movies/' + this.movideId, true);
         http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http1.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http1.onreadystatechange = () => {
@@ -394,7 +394,7 @@ class Movie extends React.Component{
             }
             else if (http1.readyState == 4 && http1.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace(PUBLIC_URL + "/login")
             }
             else if (http1.readyState == 4 && ((http1.status == 400) || (http1.status == 401) || (http1.status == 404))) {
                 let length1 = JSON.parse(http1.responseText).errors.length;
@@ -409,7 +409,7 @@ class Movie extends React.Component{
         http1.send();
 
         var http2 = new XMLHttpRequest();
-        http2.open('GET', 'http://localhost:8080/movies/' + this.movideId + "/comments", true);
+        http2.open('GET', BACK_URL + '/movies/' + this.movideId + "/comments", true);
         http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http2.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http2.onreadystatechange = () => {
@@ -418,7 +418,7 @@ class Movie extends React.Component{
             }
             else if (http2.readyState == 4 && http2.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace(PUBLIC_URL + "/login")
             }
             else if (http2.readyState == 4 && ((http2.status == 400) || (http2.status == 404))) {
                 let length2 = JSON.parse(http2.responseText).errors.length;
@@ -433,7 +433,7 @@ class Movie extends React.Component{
         http2.send();
 
         var http3 = new XMLHttpRequest();
-        http3.open('GET', 'http://localhost:8080/movies/' + this.movideId + "/actors", true);
+        http3.open('GET', BACK_URL + '/movies/' + this.movideId + "/actors", true);
         http3.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
         http3.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http3.onreadystatechange = () => {

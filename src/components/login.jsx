@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
-import {redirect, toastConfig, CLIENT_ID} from './tools';
+import {redirect, toastConfig, CLIENT_ID, PUBLIC_URL, BACK_URL} from './tools';
 
 function IEInput(props){
     return(
@@ -97,13 +97,13 @@ class Login extends React.Component{
 
         var http = new XMLHttpRequest();
         var params = '?' + 'userEmail=' + this.state.userEmail + '&password=' + this.state.password;
-        http.open('POST', 'http://localhost:8080/account/login/' + params, true);
+        http.open('POST', BACK_URL + '/account/login/' + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.onreadystatechange = () =>  {
             if(http.readyState == 4){
                 if(http.status == 200) {
                     localStorage.setItem("jwt", JSON.parse(http.responseText).value.jwt)
-                    window.location.replace("http://localhost:3000/movies")
+                    window.location.replace(PUBLIC_URL + "/movies")
                 }
                 else if ((http.status == 400) || (http.status == 401) ||
                          (http.status == 403) || (http.status == 404)){
@@ -122,7 +122,7 @@ class Login extends React.Component{
 
     componentDidMount = () => {
         if(localStorage.getItem("jwt") != null){
-            window.location.replace("http://localhost:3000/movies")
+            window.location.replace(PUBLIC_URL + "/movies")
         }
     }
 }

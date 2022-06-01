@@ -6,7 +6,7 @@ import Signup from './signup';
 import Login from './login';
 import root from './tools';
 import '../styles/vazir-fonts.css';
-import {redirect, toastConfig} from './tools';
+import {PUBLIC_URL, BACK_URL} from './tools';
 
 import '../styles/main.css';
 
@@ -118,7 +118,7 @@ class UserMenu extends React.Component{
                         </a>
                     </li> 
                     <li className="iemdb-user-elemnt iemdb-rounded-bottom">
-                        <a href={this.state.isLoggedIn ? '/login' : '/signu' } className="color-white" onClick={(e)=>{if(this.state.isLoggedIn) this.doLogout(e)}}>
+                        <a href={this.state.isLoggedIn ? '/login' : '/signup' } className="color-white" onClick={(e)=>{if(this.state.isLoggedIn) this.doLogout(e)}}>
                             {this.state.isLoggedIn ? "خروج" : "ثبت نام"}
                         </a>
                     </li>       
@@ -132,12 +132,12 @@ class UserMenu extends React.Component{
         event.preventDefault();
         this.setState(prevState => ({isLoggedIn : false}));
         localStorage.removeItem('jwt');
-        window.location.replace("http://localhost:3000/login");
+        window.location.replace(PUBLIC_URL + "/login");
     }
 
     componentDidMount() {     
         var http = new XMLHttpRequest();
-        http.open('GET', 'http://localhost:8080/account', true);
+        http.open('GET', BACK_URL + '/account', true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
         http.setRequestHeader('jwt', localStorage.getItem('jwt'));
 

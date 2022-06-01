@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import '../styles/vazir-fonts.css'
 
+const PUBLIC_URL = "http://localhost:3000"
+const BACK_URL = "http://localhost:8080"
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const CLIENT_ID = "33aa0e611f539f4a8d70";
@@ -25,4 +28,4 @@ const toastConfig = {
     }
 
 export default root;
-export {redirect, toastConfig, CLIENT_ID, CLIENT_SECRET};
+export {redirect, toastConfig, CLIENT_ID, CLIENT_SECRET, PUBLIC_URL, BACK_URL};

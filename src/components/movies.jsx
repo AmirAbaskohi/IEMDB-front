@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import root from './tools';
-import {toastConfig} from './tools';
+import {toastConfig, PUBLIC_URL, BACK_URL} from './tools';
 
 function MovieItem(props){
     return(
@@ -127,7 +127,7 @@ class Movies extends React.Component{
             }
         }
 
-        http.open('GET', 'http://localhost:8080/movies' + params, true);
+        http.open('GET', BACK_URL + '/movies' + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
         http.setRequestHeader('jwt', localStorage.getItem('jwt'));
         http.onreadystatechange = () => {
@@ -138,7 +138,7 @@ class Movies extends React.Component{
             }
             else if (http.readyState == 4 && http.status == 403){
                 toast.error('You should login first!\nRedirecting to login page', toastConfig);
-                window.location.replace("http://localhost:3000/login")
+                window.location.replace(PUBLIC_URL + "/login")
             }
             else if (http.readyState == 4 && ((http.status == 400) || (http.status == 401) || (http.status == 404))) {
                 let length = JSON.parse(http.responseText).errors.length;
