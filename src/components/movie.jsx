@@ -42,7 +42,7 @@ class MovieComment extends React.Component{
         var params = '?vote=' + score;
         http.open('PUT', BACK_URL + '/comment/' + this.state.id + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
         http.onreadystatechange = () =>  {
             if(http.readyState == 4 && http.status == 202) {
                 this.setState(JSON.parse(http.responseText).value)
@@ -100,7 +100,7 @@ function MovieCommentInput(props){
         };
         http.open('POST', BACK_URL + '/comment', true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
 
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 202) {
@@ -164,7 +164,7 @@ class MovieInfo extends React.Component{
         console.log(newRating)
         http.open('PUT', BACK_URL + '/movies/' + this.state.id + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
 
         http.onreadystatechange = () =>  {
             if(http.readyState == 4 && http.status == 202) {
@@ -195,7 +195,7 @@ class MovieInfo extends React.Component{
         var params = '?movieId=' + this.state.id;
         http.open('POST', BACK_URL + '/user/watchlist' + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
 
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 202) {
@@ -386,7 +386,7 @@ class Movie extends React.Component{
         var http1 = new XMLHttpRequest();
         http1.open('GET', BACK_URL + '/movies/' + this.movideId, true);
         http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http1.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http1.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
         http1.onreadystatechange = () => {
             if(http1.readyState == 4 && http1.status == 200) {
                 this.setState(JSON.parse(http1.responseText).value)
@@ -411,7 +411,7 @@ class Movie extends React.Component{
         var http2 = new XMLHttpRequest();
         http2.open('GET', BACK_URL + '/movies/' + this.movideId + "/comments", true);
         http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http2.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http2.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
         http2.onreadystatechange = () => {
             if(http2.readyState == 4 && http2.status == 200) {
                 this.setState(prevState => ({comments : JSON.parse(http2.responseText).value}))
@@ -435,7 +435,7 @@ class Movie extends React.Component{
         var http3 = new XMLHttpRequest();
         http3.open('GET', BACK_URL + '/movies/' + this.movideId + "/actors", true);
         http3.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
-        http3.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http3.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
         http3.onreadystatechange = () => {
             if(http3.readyState == 4 && http3.status == 200) {
                 this.setState(prevState => ({actors : JSON.parse(http3.responseText).value}))

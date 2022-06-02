@@ -139,7 +139,7 @@ class UserMenu extends React.Component{
         var http = new XMLHttpRequest();
         http.open('GET', BACK_URL + '/account', true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8'); 
-        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
 
         http.onreadystatechange = () => {
             if(http.readyState == 4 && http.status == 200) {

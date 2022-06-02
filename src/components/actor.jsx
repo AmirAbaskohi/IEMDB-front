@@ -99,7 +99,7 @@ class Actor extends React.Component{
         var http1 = new XMLHttpRequest();
         http1.open('GET', BACK_URL + '/actors/' + this.actorId, true);
         http1.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http1.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http1.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
         http1.onreadystatechange = () => {
             if(http1.readyState == 4 && http1.status == 200) {
                 this.setState(JSON.parse(http1.responseText).value)
@@ -123,7 +123,7 @@ class Actor extends React.Component{
         var http2 = new XMLHttpRequest();
         http2.open('GET', BACK_URL + '/actors/' + this.actorId + "/movies", true);
         http2.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http2.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http2.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
         http2.onreadystatechange = () => {
             if(http2.readyState == 4 && http2.status == 200) {
                 this.setState(prevState => ({movies : JSON.parse(http2.responseText).value}))

@@ -129,7 +129,7 @@ class Movies extends React.Component{
 
         http.open('GET', BACK_URL + '/movies' + params, true);
         http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-        http.setRequestHeader('jwt', localStorage.getItem('jwt'));
+        http.setRequestHeader('Authorization', "bearer " + localStorage.getItem('jwt'));
         http.onreadystatechange = () => {
             
             if(http.readyState == 4 && http.status == 200) {
